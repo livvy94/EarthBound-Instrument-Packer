@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PackSPC
+﻿namespace PackSPC
 {
     class Instrument
     {
