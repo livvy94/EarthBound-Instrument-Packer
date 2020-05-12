@@ -21,10 +21,12 @@ namespace PackSPC
             if (FolderIO.FolderNonexistant(brrPath))
             {
                 Console.WriteLine("Folder does not exist!");
+                Console.WriteLine("Make sure you have a folder full of BRRs and a textfile there.");
                 return;
             }
 
             var samples = FolderIO.LoadBRRs(brrPath);
+            var instruments = FolderIO.LoadMetadata(samples);
 
             //There can be multiple metadata things that point to the same file - a one-to-many relationship
             //So how are we going to deal with this?
