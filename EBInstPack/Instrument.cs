@@ -1,4 +1,4 @@
-﻿namespace PackSPC
+﻿namespace EBInstPack
 {
     class Instrument
     {

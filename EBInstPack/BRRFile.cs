@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PackSPC
+namespace EBInstPack
 {
     class BRRFile
     {

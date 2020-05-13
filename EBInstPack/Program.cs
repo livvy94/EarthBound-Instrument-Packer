@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PackSPC
+namespace EBInstPack
 {
     class Program
     {

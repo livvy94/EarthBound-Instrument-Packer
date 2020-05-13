@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>EarthBound Instrument Packer</AssemblyName>
+    <RootNamespace>EBInstPack</RootNamespace>
+    <StartupObject>EBInstPack.Program</StartupObject>
+  </PropertyGroup>
+
+</Project>
