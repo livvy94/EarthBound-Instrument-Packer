@@ -6,35 +6,37 @@ namespace PackSPC
     {
         static void Main(string[] args)
         {
-            string brrPath;
+            string folderPath;
             if (args.Length > 0)
             {
-                brrPath = args[0];
+                folderPath = args[0];
             }
             else
             {
                 //ask for the folder name
                 Console.WriteLine("Input the folder name where the samples & .txt file are:");
-                brrPath = Console.ReadLine();
+                folderPath = Console.ReadLine();
             }
 
-            if (FolderIO.FolderNonexistant(brrPath))
+            if (FolderIO.FolderNonexistant(folderPath))
             {
                 Console.WriteLine("Folder does not exist!");
                 Console.WriteLine("Make sure you have a folder full of BRRs and a textfile there.");
                 return;
             }
 
-            var samples = FolderIO.LoadBRRs(brrPath);
-            var instruments = FolderIO.LoadMetadata(samples);
+            var samples = FolderIO.LoadBRRs(folderPath);
+            var instruments = FolderIO.LoadMetadata(folderPath, samples);
 
-            //There can be multiple metadata things that point to the same file - a one-to-many relationship
-            //So how are we going to deal with this?
-            //The current plan is:
-            //- Have the filename be an attribute of BRRFile objects
-            //- Have a BRRFile attribute in the Instrument object
-            //- When ripping through the textfile and creating Instrument objects,
-            //  check the contents of the quotation marks with the value in every BRRFile's filename and assign the one that matches
+            //serialize to sample pointer table
+
+            //serialize to brr dump
+
+            //serialize to instrument configuration table
+
+            //calculate all the headers
+
+            //slap 'em all together and save as a .bin
         }
     }
 }
