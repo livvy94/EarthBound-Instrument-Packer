@@ -6,6 +6,7 @@ namespace EBInstPack
     {
         readonly List<BRRFile> samples = new List<BRRFile>(); //passed in from Program.cs
         readonly List<Instrument> instruments = new List<Instrument>(); //also passed in
+        List<KeyValuePair<int, string>> offsets = new List<KeyValuePair<int, string>>();
 
         public BRRCluster(List<BRRFile> samples, List<Instrument> instruments)
         {
@@ -17,13 +18,18 @@ namespace EBInstPack
         {
             get
             {
+                var currentOffset = 0;
                 var result = new List<byte>();
                 foreach (var sample in samples)
                 {
-                    foreach (var b in sample.data)
+                    var temp = sample.data.ToArray();
+                    foreach (var b in temp)
                     {
                         result.Add(b); //Combine all BRR files into one big blob. There's GOTTA be a better way to do this
                     }
+                    offsets.Add(new KeyValuePair<int, string>(currentOffset, sample.filename));
+
+                    currentOffset += temp.Length;
                 }
                 return result.ToArray();
             }
@@ -46,7 +52,7 @@ namespace EBInstPack
 
                 //SOLUTION:
                 //Make list of ints and a list of samples
-                //put offsets in the list of ints. Do it with some kind of calculation based on size of each BRRFile.data
+                //Offsets are stored in the offsets variable defined at the top of this file
                 //Don't forget to add the loop point to the pointer. good lord
 
 
