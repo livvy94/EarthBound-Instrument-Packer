@@ -29,7 +29,7 @@ namespace EBInstPack
             var instruments = FileLoading.LoadMetadata(folderPath, samples);
 
             //combine all BRRs into a cluster, generate sample pointer table
-            var cluster = new BRRCluster(samples, instruments);
+            var cluster = new BRRCluster(samples);
 
             //serialize to instrument configuration table
 
