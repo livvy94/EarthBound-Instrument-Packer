@@ -4,9 +4,9 @@ using System.IO;
 
 namespace EBInstPack
 {
-    class FolderIO
+    class FileLoading
     {
-        const string TEXT_FILE_NAME = "METADATA.txt";
+        const string TEXT_FILE_NAME = "instruments.txt";
 
         internal static bool FolderNonexistant(string folderPath)
         {
@@ -30,57 +30,23 @@ namespace EBInstPack
             {
                 var info = new FileInfo(filename);
                 if (info.Extension != "brr")
-                    continue; //skip anything that isn't a BRR file
+                    continue; //skip the text file, or anything else that might be in there
 
                 var fileContents = File.ReadAllBytes(info.FullName);
                 result.Add(new BRRFile
                 {
-                    data = GetBRRData(fileContents), //not done yet, see below
-                    loopPoint = GetBRRLoopPoint(fileContents), //not done yet, see below
+                    data = BRRFunctions.IsolateBRRdata(fileContents),
+                    loopPoint = BRRFunctions.IsolateLoopPoint(fileContents),
                     filename = info.Name
                 });
             }
             return result;
         }
 
-        internal static List<byte> GetBRRData(byte[] data)
-        {
-            var result = new List<byte>();
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (i < 2) continue; //skip the loop point and return everything else
-                result.Add(data[i]); //Something tells me this could be done in a cleaner way...
-            }
-            return result;
-        }
-
-        internal static int GetBRRLoopPoint(byte[] data)
-        {
-            //TODO: Move stuff like this to the BRRFile class (how would that work, though?)
-
-            //Special thanks to Milon in the SMW Central discord for this explanation.
-            //A BRR loop point is stored by taking the raw value, dividing it by 16, and multiplying it by 9.
-
-            //For example:
-            //In C700, Chrono Trigger's Choir sample shows up with a loop point of 2288.
-            //2288 / 16 = 143
-            //143 * 9 = 1287
-            //1287 in hex is [05 07], which is then swapped as [07 05].
-            //(Which is what you see if you open that file in a hex editor!)
-
-            //So to do the inverse, we need to take the first two bytes of a file,
-            //reverse them, divide the number by 9, and multiply it by 16.
-
-            var amkLoopHeader = new byte[] { data[0], data[1] }; //Doesn't need to be swapped?? Maybe BitConverter assumes little-endian.
-            return (BitConverter.ToInt16(amkLoopHeader) / 9) * 16;
-        }
-
         internal static List<Instrument> LoadMetadata(string folderPath, List<BRRFile> samples)
         {
             //rip through the textfile
-            //for each line, check the contents of the quotation marks against every BRR File
-            //using FindMatchingBRR(samples, aNameFromTheTextFile)
+            //for each line, check the contents of the quotation marks against every BRR File using FindDuplicate
             var lines = File.ReadLines(GetFullTextfilePath(folderPath));
 
             var result = new List<Instrument>();
@@ -99,7 +65,7 @@ namespace EBInstPack
                     Gain = Convert.ToByte(lineContents[3]),
                     Multiplier = Convert.ToByte(lineContents[4]),
                     Sub = Convert.ToByte(lineContents[5]),
-                    sample = FindMatchingBRR(samples, lineContents[0])
+                    sample = BRRFunctions.FindDuplicate(samples, lineContents[0])
                 };
 
                 result.Add(temp);
@@ -135,17 +101,6 @@ namespace EBInstPack
             }
 
             return result;
-        }
-
-        internal static BRRFile FindMatchingBRR(List<BRRFile> samples, string name)
-        {
-            foreach(var brr in samples)
-            {
-                if (brr.filename == name)
-                    return brr;
-            }
-
-            return null; //If there's nothing there with that name, what do?
         }
     }
 }

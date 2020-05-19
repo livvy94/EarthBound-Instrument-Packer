@@ -14,23 +14,22 @@ namespace EBInstPack
             else
             {
                 //ask for the folder name
-                Console.WriteLine("Input the folder name where the samples & .txt file are:");
+                Console.WriteLine("Input the folder name where the samples & text file are:");
                 folderPath = Console.ReadLine();
             }
 
-            if (FolderIO.FolderNonexistant(folderPath))
+            if (FileLoading.FolderNonexistant(folderPath))
             {
                 Console.WriteLine("Folder does not exist!");
                 Console.WriteLine("Make sure you have a folder full of BRRs and a textfile there.");
                 return;
             }
 
-            var samples = FolderIO.LoadBRRs(folderPath);
-            var instruments = FolderIO.LoadMetadata(folderPath, samples);
+            var samples = FileLoading.LoadBRRs(folderPath);
+            var instruments = FileLoading.LoadMetadata(folderPath, samples);
 
-            //serialize to sample pointer table
-
-            //serialize to brr dump
+            //combine all BRRs into a cluster, generate sample pointer table
+            var cluster = new BRRCluster(samples, instruments);
 
             //serialize to instrument configuration table
 
