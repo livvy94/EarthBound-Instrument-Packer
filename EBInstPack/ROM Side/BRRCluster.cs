@@ -5,7 +5,7 @@ namespace EBInstPack
     class BRRCluster
     {
         readonly List<BRRFile> samples = new List<BRRFile>();
-        List<PointerTableEntry> entries = new List<PointerTableEntry>();
+        readonly List<PointerTableEntry> entries = new List<PointerTableEntry>();
 
         public BRRCluster(List<BRRFile> samples)
         {
