@@ -36,7 +36,7 @@ namespace EBInstPack
 
                 var result = new List<byte>();
                 result.AddRange(aramOffset);
-                result.AddRange(HexHelpers.IntToByteArray(dump.Count));
+                result.AddRange(HexHelpers.IntToByteArray_Length2(dump.Count));
                 result.AddRange(dump);
                 return result.ToArray();
             }
@@ -47,38 +47,31 @@ namespace EBInstPack
             //Example:
             //18 00   (A count of how many hex numbers the pointers make up - two bytes swapped)
             //68 6C   (The ARAM offset to put this data, also swapped)
-            //B0 95 82 A5 B0 95 82 A5 B0 95 82 A5 7A A7 62 AD B6 B3 3E B6 59 B6 BE BA  (The pointers themselves - there are 0x18 hex numbers here)
-
-            //This is one of the packs from the vanilla game. Notice how none of these are 00 00? Hmmm... Not sure if I should worry or not
+            //B0 95 82 A5 B0 95 82 A5 B0 95 82 A5 7A A7 62 AD B6 B3 3E B6 59 B6 BE BA  (The pointers themselves - there are 0x18 hex numbers here, pointing to 6 samples)
 
             get
             {
-                byte[] aramOffset = { 0x68, 0x6C }; //ARAM offset 6C68
+                var aramOffset = new byte[] { 0x68, 0x6C }; //ARAM offset 6C68
 
                 var pointers = new List<byte>();
                 foreach (var entry in entries)
                 {
-                    //Each pointer is two hex numbers long, right?
-                    //Ask pinci if the above example specifies 12 instruments or 6 instruments
-                    pointers.AddRange(entry.howIsThisEvenFunctional);
+                    pointers.AddRange(entry.Data);
                 }
 
                 var result = new List<byte>();
-                result.AddRange(HexHelpers.IntToByteArray(pointers.Count));
+                result.AddRange(HexHelpers.IntToByteArray_Length2(pointers.Count));
                 result.AddRange(aramOffset);
                 result.AddRange(pointers);
                 return result.ToArray();
             }
         }
+
         class PointerTableEntry
         {
             public int offset;
             public int loopPoint;
-            public byte[] howIsThisEvenFunctional
-            {
-                get { return HexHelpers.IntToByteArray(offset + loopPoint); } //The bytes need to be swapped. Double check
-            }
+            public byte[] Data => HexHelpers.IntsToByteArray_Length2(new List<int> { offset, loopPoint });
         }
-
     }
 }

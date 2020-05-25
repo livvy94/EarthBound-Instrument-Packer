@@ -52,16 +52,5 @@ namespace EBInstPack
 
             return null; //If there's nothing there with that name, what do?
         }
-
-        public static int GetSizeOfAll(List<BRRFile> samples)
-        {
-            int size = 0;
-            foreach (var sample in samples)
-            {
-                size += sample.data.ToArray().Length;
-            }
-
-            return size;
-        }
     }
 }

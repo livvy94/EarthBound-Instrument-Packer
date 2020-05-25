@@ -11,7 +11,8 @@
 
 >Info about the samples. This is the stuff you can see in EBMusEd's Instruments tab.
 
-- Offset & Loop Point (see below). Make as many of these as you want as long as it fits in the above header.
+- Offset & Loop Point. Make as many of these as you want as long as it fits in the above header.
+- Both values are two hex numbers long, so each entry should be `[XX XX YY YY]`
 - `FF` padding as needed
 
 ### BRR Dump Header
@@ -41,20 +42,3 @@
 - Tuning (Multiplier)
 
 >Check this [tutorial](https://www.smwcentral.net/?p=viewthread&t=92575&page=1&pid=1502895#p1502895) on SMWCentral for more info about getting the tuning values for a BRR file.
-
-* * *
-
-## Loop points are stored in the sample pointers!
-
-For example, if the loop point is `F0` and the BRR's offset is `0800`, the value would be this:
-```
-  0800
-+   F0
-------
-  08F0
-
-(swap the bytes)
-
-  F008 <-- the final value
-```
-

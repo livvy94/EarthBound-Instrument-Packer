@@ -10,5 +10,7 @@
         public byte Sub;
 
         public BRRFile sample = new BRRFile();
+
+        public byte[] ConfigTableEntry => new byte[] { index, ADSR1, ADSR2, Gain, Multiplier, Sub };
     }
 }

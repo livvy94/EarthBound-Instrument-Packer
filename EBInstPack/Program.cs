@@ -30,6 +30,7 @@ namespace EBInstPack
 
             //combine all BRRs into a cluster, generate sample pointer table
             var cluster = new BRRCluster(samples);
+            var metadata = new InstrumentConfigurationTable(instruments);
 
             //serialize to instrument configuration table
 
