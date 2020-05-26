@@ -4,9 +4,10 @@ using System.IO;
 
 namespace EBInstPack
 {
-    class FileLoading
+    class FileIO
     {
         const string TEXT_FILE_NAME = "instruments.txt";
+        const string OUTPUT_FILENAME = "Convert_Me_To_CCScript.bin";
 
         internal static bool FolderNonexistant(string folderPath)
         {
@@ -102,5 +103,11 @@ namespace EBInstPack
 
             return result;
         }
+
+        public static void Save(byte[] pack)
+        {
+            File.WriteAllBytes(OUTPUT_FILENAME, pack);
+        }
     }
+
 }
