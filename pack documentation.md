@@ -1,6 +1,6 @@
 # EarthBound N-SPC Instrument Pack Documentation
 
-### Sample Pointer Table HEADER (4 bytes)
+### Sample Pointer Table HEADER (two hex numbers)
 
 >Info about the range of bytes that contain info about the samples
 
@@ -41,4 +41,4 @@
 - Tuning (Sub)
 - Tuning (Multiplier)
 
->Check this [tutorial](https://www.smwcentral.net/?p=viewthread&t=92575&page=1&pid=1502895#p1502895) on SMWCentral for more info about getting the tuning values for a BRR file.
+>Check this [tutorial](https://www.smwcentral.net/?p=viewthread&t=92575&page=1&pid=1502895#p1502895) on SMWCentral for how to get the tuning values with BRR Player.
