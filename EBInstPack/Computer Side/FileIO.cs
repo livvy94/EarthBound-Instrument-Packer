@@ -7,7 +7,7 @@ namespace EBInstPack
     class FileIO
     {
         const string TEXT_FILE_NAME = "instruments.txt";
-        const string OUTPUT_FILENAME = "Convert_Me_To_CCScript.bin";
+        const string OUTPUT_FILENAME = "pack.bin";
 
         internal static bool FolderNonexistant(string folderPath)
         {
@@ -25,12 +25,14 @@ namespace EBInstPack
 
         internal static List<BRRFile> LoadBRRs(string folderPath)
         {
-            var result = new List<BRRFile>();
+            var filenames = Directory.GetFiles(GetFullPath(folderPath));
+            Array.Sort(filenames); //this will let the order of insertion be specified by renaming the files to "1 trumpet.brr", "2 strings.brr", etc.
 
-            foreach(string filename in Directory.GetFiles(GetFullPath(folderPath)))
+            var result = new List<BRRFile>();
+            foreach (string filename in filenames)
             {
                 var info = new FileInfo(filename);
-                if (info.Extension != "brr")
+                if (info.Extension != ".brr")
                     continue; //skip the text file, or anything else that might be in there
 
                 var fileContents = File.ReadAllBytes(info.FullName);
@@ -104,10 +106,14 @@ namespace EBInstPack
             return result;
         }
 
-        public static void Save(byte[] pack)
+        internal static void Save(BRRCluster cluster, InstrumentConfigurationTable metadata)
         {
-            File.WriteAllBytes(OUTPUT_FILENAME, pack);
+            var pack = new List<byte>();
+            pack.AddRange(cluster.PointerTable);
+            pack.AddRange(cluster.DataDump);
+            pack.AddRange(metadata.Header);
+            pack.AddRange(metadata.DataDump);
+            File.WriteAllBytes(OUTPUT_FILENAME, pack.ToArray());
         }
     }
-
 }

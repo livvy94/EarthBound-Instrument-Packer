@@ -6,37 +6,36 @@ namespace EBInstPack
     {
         static void Main(string[] args)
         {
+            var no_arg_mode = args.Length == 0;
             string folderPath;
-            if (args.Length > 0)
+
+            if (no_arg_mode)
             {
-                folderPath = args[0];
-            }
-            else
-            {
-                //ask for the folder name
                 Console.WriteLine("Input the folder name where the samples & text file are:");
                 folderPath = Console.ReadLine();
             }
+            else
+            {
+                folderPath = args[0];
+            }
 
-            if (FileLoading.FolderNonexistant(folderPath))
+            if (FileIO.FolderNonexistant(folderPath))
             {
                 Console.WriteLine("Folder does not exist!");
                 Console.WriteLine("Make sure you have a folder full of BRRs and a textfile there.");
+                if (no_arg_mode) Console.ReadLine();
                 return;
             }
 
-            var samples = FileLoading.LoadBRRs(folderPath);
-            var instruments = FileLoading.LoadMetadata(folderPath, samples);
+            var samples = FileIO.LoadBRRs(folderPath);
+            var instruments = FileIO.LoadMetadata(folderPath, samples);
 
             //combine all BRRs into a cluster, generate sample pointer table
             var cluster = new BRRCluster(samples);
+            //serialize instrument configuration table
             var metadata = new InstrumentConfigurationTable(instruments);
-
-            //serialize to instrument configuration table
-
-            //calculate all the headers
-
-            //slap 'em all together and save as a .bin
+            //Save it all
+            FileIO.Save(cluster, metadata);
         }
     }
 }
