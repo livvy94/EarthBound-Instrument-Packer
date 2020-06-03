@@ -14,10 +14,13 @@ namespace EBInstPack
         {
             var temp = BitConverter.GetBytes(input);
 
-            if (temp.Length == 1) //It'll need to be [XX 00], not just [XX]
-                return new byte[] { temp[0], 0x00 };
+            if (temp.Length == 1) //It'll need to be [00 XX], not just [XX]
+                return new byte[] { 0x00, temp[0] };
 
-            return temp; //will these need to be reversed due to endian stuff?
+            if (!BitConverter.IsLittleEndian)
+                Array.Reverse(temp);
+
+            return temp;
         }
 
         public static byte[] IntsToByteArray_Length2(List<int> input)
