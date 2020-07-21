@@ -6,17 +6,28 @@ namespace EBInstPack
     {
         static void Main(string[] args)
         {
-            var no_arg_mode = args.Length == 0;
+            var no_arg_mode = args.Length < 2;
             string folderPath;
+            byte packNumber = 0xFF;
+            string outputFilename = "output";
 
             if (no_arg_mode)
             {
                 Console.WriteLine("Input the folder name where the samples & text file are:");
                 folderPath = Console.ReadLine();
+
+                Console.WriteLine("Which pack is this going to replace? (Type it in hex, please.)");
+                packNumber = byte.Parse(Console.ReadLine(), System.Globalization.NumberStyles.HexNumber);
+
+                Console.WriteLine("What would you like the .ccs file to be named?");
+                var nameInput = Console.ReadLine().Trim();
+                if (nameInput != string.Empty)
+                    outputFilename = nameInput;
             }
             else
             {
                 folderPath = args[0];
+                packNumber = byte.Parse(args[1], System.Globalization.NumberStyles.HexNumber);
             }
 
             if (FileIO.FolderNonexistant(folderPath))
@@ -32,10 +43,25 @@ namespace EBInstPack
 
             //combine all BRRs into a cluster, generate sample pointer table
             var cluster = new BRRCluster(samples);
+
             //serialize instrument configuration table
             var metadata = new InstrumentConfigurationTable(instruments);
-            //Save it all
-            FileIO.Save(cluster, metadata);
+
+            //Assemble everything into a .bin (todo: take this out of FileIO...)
+            var bin = FileIO.AssembleBin(cluster, metadata);
+
+            //Turn the bin into a CCScript file
+            var ccscript = CCScriptOutput.Generate(bin, packNumber, outputFilename);
+
+            //Save the ccscript to output.ccs
+            FileIO.SaveTextfile(ccscript, outputFilename);
+            Console.WriteLine($"Wrote {outputFilename}.ccs!");
+
+            if (no_arg_mode)
+            {
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
         }
     }
 }

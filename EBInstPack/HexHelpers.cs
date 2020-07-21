@@ -5,6 +5,13 @@ namespace EBInstPack
 {
     class HexHelpers
     {
+        //This is a collection of methods that'd probably be useful in any romhacking tool
+        //I'm putting them here so I can save them for future projects
+
+        internal static int OffsetConvert_PCtoHiROM(int input) => input + 0xC00000; //Including these so I remember how the conversion works
+        //internal static int OffsetConvert_HiROMtoPC(int input) => input - 0xC00000; //This one's unused though
+        static int HexConvert(string input) => Convert.ToInt32(input, 16);
+
         public static Int16 ByteArrayToInt(byte[] input)
         {
             return BitConverter.ToInt16(input);

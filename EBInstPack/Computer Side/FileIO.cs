@@ -106,14 +106,21 @@ namespace EBInstPack
             return result;
         }
 
-        internal static void Save(BRRCluster cluster, InstrumentConfigurationTable metadata)
+        internal static byte[] AssembleBin(BRRCluster cluster, InstrumentConfigurationTable metadata)
         {
+            //TODO: Move this out of FileIO
             var pack = new List<byte>();
             pack.AddRange(cluster.PointerTable);
             pack.AddRange(cluster.DataDump);
             pack.AddRange(metadata.Header);
             pack.AddRange(metadata.DataDump);
-            File.WriteAllBytes(OUTPUT_FILENAME, pack.ToArray());
+            return pack.ToArray();
+        }
+
+        public static void SaveTextfile(string result, string filename)
+        {
+            using var writer = new StreamWriter($"{filename}.ccs");
+            writer.Write(result);
         }
     }
 }

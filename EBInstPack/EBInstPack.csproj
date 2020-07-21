@@ -8,4 +8,17 @@
     <StartupObject>EBInstPack.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="example-pack28\**" />
+    <Compile Remove="example-pack2a\**" />
+    <EmbeddedResource Remove="example-pack28\**" />
+    <EmbeddedResource Remove="example-pack2a\**" />
+    <None Remove="example-pack28\**" />
+    <None Remove="example-pack2a\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DotNet Core Build EXE.bat" />
+  </ItemGroup>
+
 </Project>
