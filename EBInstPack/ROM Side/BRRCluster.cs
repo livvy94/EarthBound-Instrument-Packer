@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace EBInstPack
 {
@@ -10,6 +11,22 @@ namespace EBInstPack
         public BRRCluster(List<BRRFile> samples)
         {
             this.samples = samples; //passed in from Program.cs
+
+            //Generate the dump, keeping track of each sample's offsets all the while
+            var dump = new List<byte>();
+            var currentOffset = 0x95B0; //the end of Pack 05?
+            foreach (var sample in samples)
+            {
+                dump.AddRange(sample.data);
+
+                entries.Add(new PointerTableEntry
+                {
+                    offset = currentOffset,
+                    loopPoint = sample.loopPoint,
+                });
+
+                currentOffset += sample.data.Count;
+            }
         }
 
         public byte[] DataDump
@@ -18,25 +35,11 @@ namespace EBInstPack
             {
                 var aramOffset = new byte[] { 0xB0, 0x95 };
 
-                //Generate the dump, keeping track of each sample's offsets all the while
-                var dump = new List<byte>();
-                var currentOffset = 0;
-                foreach (var sample in samples)
-                {
-                    dump.AddRange(sample.data);
-
-                    entries.Add(new PointerTableEntry
-                    {
-                        offset = currentOffset, //Is this okay or do I need to add something to it?
-                        loopPoint = sample.loopPoint,
-                    });
-
-                    currentOffset += sample.data.Count;
-                }
+                var dump = samples.SelectMany(s => s.data).ToList();
 
                 var result = new List<byte>();
-                result.AddRange(aramOffset);
                 result.AddRange(HexHelpers.IntToByteArray_Length2(dump.Count));
+                result.AddRange(aramOffset);
                 result.AddRange(dump);
                 return result.ToArray();
             }

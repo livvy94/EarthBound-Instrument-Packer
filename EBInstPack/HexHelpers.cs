@@ -19,10 +19,7 @@ namespace EBInstPack
 
         public static byte[] IntToByteArray_Length2(int input)
         {
-            var temp = BitConverter.GetBytes(input);
-
-            if (temp.Length == 1) //It'll need to be [00 XX], not just [XX]
-                return new byte[] { 0x00, temp[0] };
+            var temp = BitConverter.GetBytes((Int16)input);
 
             if (!BitConverter.IsLittleEndian)
                 Array.Reverse(temp);

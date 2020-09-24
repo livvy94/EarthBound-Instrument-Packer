@@ -4,6 +4,7 @@ namespace EBInstPack
 {
     class Program
     {
+        const bool DEBUG_MODE = true;
         static void Main(string[] args)
         {
             var no_arg_mode = args.Length < 2;
@@ -11,7 +12,14 @@ namespace EBInstPack
             byte packNumber = 0xFF;
             string outputFilename = "output";
 
-            if (no_arg_mode)
+            if (DEBUG_MODE)
+            {
+                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack28";
+                packNumber = 0x2A;
+                outputFilename = "just_a_square";
+                //Note to self: drop the output in the Missingno project since that's already loaded into CoilSnake
+            }
+            else if (no_arg_mode)
             {
                 Console.WriteLine("Input the folder name where the samples & text file are:");
                 folderPath = Console.ReadLine();

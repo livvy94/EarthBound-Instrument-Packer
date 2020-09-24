@@ -11,7 +11,7 @@ namespace EBInstPack
             this.instruments = instruments; //passed in from Program.cs
         }
 
-        readonly byte[] aramOffset = { 0xFF, 0xFF }; //ARAM offset ???? - check DMs with pinci and see if he mentioned it
+        readonly byte[] aramOffset = { 0x6E, 0x9C }; //ARAM offset ???? - check DMs with pinci and see if he mentioned it
 
         public byte[] Header
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Globalization;
 
 namespace EBInstPack
 {
@@ -63,11 +65,11 @@ namespace EBInstPack
                 var temp = new Instrument
                 {
                     index = instIndex,
-                    ADSR1 = Convert.ToByte(lineContents[1]),
-                    ADSR2 = Convert.ToByte(lineContents[2]),
-                    Gain = Convert.ToByte(lineContents[3]),
-                    Multiplier = Convert.ToByte(lineContents[4]),
-                    Sub = Convert.ToByte(lineContents[5]),
+                    ADSR1 = byte.Parse(lineContents[1], NumberStyles.HexNumber),
+                    ADSR2 = byte.Parse(lineContents[2], NumberStyles.HexNumber),
+                    Gain = byte.Parse(lineContents[3], NumberStyles.HexNumber),
+                    Multiplier = byte.Parse(lineContents[4], NumberStyles.HexNumber),
+                    Sub = byte.Parse(lineContents[5], NumberStyles.HexNumber),
                     sample = BRRFunctions.FindDuplicate(samples, lineContents[0])
                 };
 
@@ -78,19 +80,22 @@ namespace EBInstPack
             return result;
         }
 
-        internal static bool LineShouldBeSkipped(string line)
-        {
-            var skippableStrings = new string[] { "{", "}", "#instruments", "#samples", string.Empty };
-            var result = false;
+        //internal static bool LineShouldBeSkipped(string line)
+        //{
+        //    var skippableStrings = new string[] { "{", "}", "#instruments", "#samples", string.Empty };
+        //    var result = false;
 
-            foreach (var annoyance in skippableStrings)
-            {
-                if (line.Contains(annoyance))
-                    result = true;
-            }
+        //    foreach (var annoyance in skippableStrings)
+        //    {
+        //        if (line.Contains(annoyance))
+        //            result = true;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
+
+        static readonly string[] skippableStrings = new string[] { "{", "}", "#instruments", "#samples" };
+        internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.Contains);
 
         internal static List<string> CleanTextFileLine(string line)
         {
