@@ -11,8 +11,9 @@ namespace EBInstPack
 
     class BRRFunctions
     {
-        public static int IsolateLoopPoint(byte[] fileData)
+        public static int DecodeLoopPoint(byte[] fileData)
         {
+            //This function takes in an AddMusicK-format BRR file and returns its loop point's numerical value.
             //Special thanks to Milon in the SMW Central discord for this explanation.
             //A BRR loop point is stored by taking the raw value, dividing it by 16, and multiplying it by 9.
 
@@ -25,9 +26,13 @@ namespace EBInstPack
 
             //So to do the inverse, we need to take the first two bytes of a file,
             //reverse them, divide the number by 9, and multiply it by 16.
-
-            var amkLoopHeader = new byte[] { fileData[0], fileData[1] };
+            var amkLoopHeader = IsolateLoopPoint(fileData);
             return (HexHelpers.ByteArrayToInt(amkLoopHeader) / 9) * 16;
+        }
+
+        private static byte[] IsolateLoopPoint(byte[] fileData)
+        {
+            return new byte[] { fileData[0], fileData[1] };
         }
 
         public static List<byte> IsolateBRRdata(byte[] fileData)

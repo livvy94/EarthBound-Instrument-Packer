@@ -41,7 +41,7 @@ namespace EBInstPack
                 result.Add(new BRRFile
                 {
                     data = BRRFunctions.IsolateBRRdata(fileContents),
-                    loopPoint = BRRFunctions.IsolateLoopPoint(fileContents),
+                    loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
                     filename = info.Name
                 });
             }
@@ -110,6 +110,7 @@ namespace EBInstPack
 
             return result;
         }
+
 
         public static void SaveTextfile(string result, string outputPath, string filename)
         {
