@@ -56,7 +56,7 @@ namespace EBInstPack
             var metadata = new InstrumentConfigurationTable(instruments);
 
             //Assemble everything into a .bin (todo: take this out of FileIO...)
-            var bin = FileIO.AssembleBin(cluster, metadata);
+            var bin = BinaryBlob.AssembleBin(cluster, metadata);
 
             //Turn the bin into a CCScript file
             var ccscript = CCScriptOutput.Generate(bin, packNumber, outputFilename);
