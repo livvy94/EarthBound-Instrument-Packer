@@ -111,10 +111,10 @@ namespace EBInstPack
             return result;
         }
 
+        public static void SaveTextfile(string result, string outputPath, string filename)
         {
-        public static void SaveTextfile(string result, string filename)
-        {
-            using var writer = new StreamWriter($"{filename}.ccs");
+            var outfile = Path.Combine(outputPath, $"{filename}.ccs");
+            using var writer = new StreamWriter(outfile);
             writer.Write(result);
         }
     }

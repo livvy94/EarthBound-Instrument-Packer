@@ -62,7 +62,7 @@ namespace EBInstPack
             var ccscript = CCScriptOutput.Generate(bin, packNumber, outputFilename);
 
             //Save the ccscript to output.ccs
-            FileIO.SaveTextfile(ccscript, outputFilename);
+            FileIO.SaveTextfile(ccscript, folderPath, outputFilename); //output to the same folder the BRRs are in
             Console.WriteLine($"Wrote {outputFilename}.ccs!");
 
             if (no_arg_mode)
