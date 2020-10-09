@@ -1,4 +1,4 @@
 #samples
 {
-  "c700square.brr"   $9F $8A $00  $0c $00
+  "c700square.brr"   $8F $E6 $B8  $04 $00
 }

@@ -14,9 +14,9 @@ namespace EBInstPack
 
             if (DEBUG_MODE)
             {
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack28";
-                packNumber = 0x2A;
-                outputFilename = "just_a_square";
+                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\vanilla-pack-belch";
+                packNumber = 0x72;
+                outputFilename = "belch_maybe";
                 //Note to self: drop the output in the Missingno project since that's already loaded into CoilSnake
             }
             else if (no_arg_mode)
