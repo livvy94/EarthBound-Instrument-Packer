@@ -34,9 +34,8 @@ namespace EBInstPack
         {
             var result = new List<byte>();
 
-            for (int i = 0; i < fileData.Length; i++)
+            for (int i = 2; i < fileData.Length; i++) //starting at 2 here to skip the loop point & return the rest of it
             {
-                if (i < 2) continue; //skip the loop point and return everything else
                 result.Add(fileData[i]); //Something tells me this could be done in a cleaner way...
             }
             return result;
