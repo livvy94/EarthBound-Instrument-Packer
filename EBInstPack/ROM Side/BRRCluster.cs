@@ -22,7 +22,7 @@ namespace EBInstPack
                 entries.Add(new PointerTableEntry
                 {
                     offset = currentOffset,
-                    loopPoint = sample.loopPoint,
+                    loopPoint = currentOffset + sample.loopPoint,
                 });
 
                 currentOffset += sample.data.Count;
