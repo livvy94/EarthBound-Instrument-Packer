@@ -14,7 +14,7 @@ namespace EBInstPack
 
             //Generate the dump, keeping track of each sample's offsets all the while
             var dump = new List<byte>();
-            var currentOffset = 0x95B0; //the end of Pack 05?
+            var currentOffset = 0x95B0; //the end of Pack 05, where instrument 1A should be
             foreach (var sample in samples)
             {
                 dump.AddRange(sample.data);
@@ -22,7 +22,7 @@ namespace EBInstPack
                 entries.Add(new PointerTableEntry
                 {
                     offset = currentOffset,
-                    loopPoint = currentOffset + (sample.loopPoint != 0 ? sample.loopPoint : sample.data.Count)
+                    loopPoint = currentOffset + (sample.loopPoint != 0 ? BRRFunctions.EncodeLoopPoint(sample.loopPoint) : sample.data.Count)
                 });
 
                 currentOffset += sample.data.Count;

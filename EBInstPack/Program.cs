@@ -15,14 +15,17 @@ namespace EBInstPack
             if (DEBUG_MODE)
             {
                 //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\vanilla-pack-belch";
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack28";
-                packNumber = 0x2A;
-                outputFilename = "PackTwoA";
+                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack28";
+                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack2a";
+                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack15";
+                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-RD";
+                packNumber = 0x08;
+                outputFilename = "choirAndPiano";
                 //Note to self: drop the output in the Missingno project since that's already loaded into CoilSnake
             }
             else if (no_arg_mode)
             {
-                Console.WriteLine("Input the folder name where the samples & text file are:");
+                Console.WriteLine("Input the folder path where the samples & text file are:");
                 folderPath = Console.ReadLine();
 
                 Console.WriteLine("Which pack is this going to replace? (Type it in hex, please.)");

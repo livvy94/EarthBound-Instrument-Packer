@@ -62,6 +62,9 @@ namespace EBInstPack
                 if (LineShouldBeSkipped(line)) continue;
                 var lineContents = CleanTextFileLine(line);
 
+                //TODO: Make it so you can have spaces in the BRR filename...
+                //It's splitting incorrectly on filenames like "Piano (High).brr"
+
                 var temp = new Instrument
                 {
                     index = instIndex,

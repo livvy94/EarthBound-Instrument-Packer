@@ -1,0 +1,5 @@
+#samples
+{
+  "Choir.brr"     $FF $E0 $B8  $03 $D0
+  "PianoHigh.brr" $FF $E0 $B8  $04 $00
+}

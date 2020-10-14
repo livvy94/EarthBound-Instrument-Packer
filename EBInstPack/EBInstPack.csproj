@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="example-pack15\**" />
     <Compile Remove="example-pack28\**" />
     <Compile Remove="example-pack2a\**" />
     <Compile Remove="vanilla-pack-belch\**" />
+    <EmbeddedResource Remove="example-pack15\**" />
     <EmbeddedResource Remove="example-pack28\**" />
     <EmbeddedResource Remove="example-pack2a\**" />
     <EmbeddedResource Remove="vanilla-pack-belch\**" />
+    <None Remove="example-pack15\**" />
     <None Remove="example-pack28\**" />
     <None Remove="example-pack2a\**" />
     <None Remove="vanilla-pack-belch\**" />

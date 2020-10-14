@@ -30,6 +30,11 @@ namespace EBInstPack
             return (HexHelpers.ByteArrayToInt(amkLoopHeader) / 9) * 16;
         }
 
+        public static int EncodeLoopPoint(int rawLoopPoint)
+        {
+            return rawLoopPoint / 16 * 9;
+        }
+
         private static byte[] IsolateLoopPoint(byte[] fileData)
         {
             return new byte[] { fileData[0], fileData[1] };
