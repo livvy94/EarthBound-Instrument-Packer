@@ -43,12 +43,25 @@ namespace EBInstPack
                     continue; //skip the text file, or anything else that might be in there
 
                 var fileContents = File.ReadAllBytes(info.FullName);
-                result.Add(new BRRFile
+
+                if (BRRFunctions.FileHasNoLoopHeader(fileContents))
                 {
-                    data = BRRFunctions.IsolateBRRdata(fileContents),
-                    loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
-                    filename = info.Name
-                });
+                    result.Add(new BRRFile
+                    {
+                        data = fileContents.ToList(),
+                        loopPoint = 0,
+                        filename = info.Name
+                    });
+                }
+                else
+                {
+                    result.Add(new BRRFile
+                    {
+                        data = BRRFunctions.IsolateBRRdata(fileContents),
+                        loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
+                        filename = info.Name
+                    });
+                }
             }
             return result;
         }

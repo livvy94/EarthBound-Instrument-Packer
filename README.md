@@ -1,6 +1,6 @@
 ## A BRR import tool for use with the [EarthBound Music Editor](https://github.com/PKHackers/ebmused/releases)
 
-(Eventual) Usage:
+Usage:
 
 Create a folder with this structure:
 ```
@@ -10,6 +10,6 @@ Strings.brr
 asdfjkl.brr
 ```
 
-Run the tool and point it to this folder, and it spits out a .bin file.
+Run the tool and point it to this folder, and it spits out a CCScript file.
 
-You can manually insert this into your ROM, or use CCScript to automatically repoint the data.
+Compile this into a CoilSnake project, and the ROM will have the custom instruments automatically inserted and repointed for you!

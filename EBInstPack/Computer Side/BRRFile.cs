@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EBInstPack
 {
@@ -61,6 +62,11 @@ namespace EBInstPack
             }
 
             return null; //If there's nothing there with that name, what do?
+        }
+
+        public static bool FileHasNoLoopHeader(byte[] fileData)
+        {
+            return fileData.Length % 9 == 0; //BRR blocks are 9 bytes long
         }
     }
 }

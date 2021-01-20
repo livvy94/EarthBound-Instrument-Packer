@@ -6,6 +6,7 @@ namespace EBInstPack
     {
         static void Main(string[] args)
         {
+            const bool startAt1A = true; //TODO: use this in other places! In the future maybe have this be in the textfile...
             string folderPath;
             byte packNumber = 0xFF;
             string outputFilename = "output";
@@ -52,7 +53,7 @@ namespace EBInstPack
             //combine all BRRs into a cluster, generate sample pointer table
             var cluster = new BRRCluster(samples);
 
-            var availableBytes = ARAM.maxOffset - ARAM.samplesOffset_1A;
+            var availableBytes = ARAM.maxOffset - ARAM.samplesOffset_1A; //Does this line need to be here? Can it be moved into ARAM.cs?
             if (ARAM.CheckLimit(cluster.DataDump, availableBytes))
             {
                 Console.WriteLine($"WARNING - You've gone over the ARAM limit by {cluster.DataDump.Length - availableBytes} bytes!");
