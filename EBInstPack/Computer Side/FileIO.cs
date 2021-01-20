@@ -25,6 +25,11 @@ namespace EBInstPack
             return Path.Combine(Directory.GetCurrentDirectory(), folderPath);
         }
 
+        internal static string GetFolderNameFromPath(string folderPath)
+        {
+            return new DirectoryInfo(folderPath).Name;
+        }
+
         internal static List<BRRFile> LoadBRRs(string folderPath)
         {
             var filenames = Directory.GetFiles(GetFullPath(folderPath));
@@ -82,20 +87,6 @@ namespace EBInstPack
 
             return result;
         }
-
-        //internal static bool LineShouldBeSkipped(string line)
-        //{
-        //    var skippableStrings = new string[] { "{", "}", "#instruments", "#samples", string.Empty };
-        //    var result = false;
-
-        //    foreach (var annoyance in skippableStrings)
-        //    {
-        //        if (line.Contains(annoyance))
-        //            result = true;
-        //    }
-
-        //    return result;
-        //}
 
         static readonly string[] skippableStrings = new string[] { "{", "}", "#instruments", "#samples" };
         internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.Contains);

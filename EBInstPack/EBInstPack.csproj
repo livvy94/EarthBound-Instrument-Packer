@@ -3,23 +3,32 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>EarthBound Instrument Packer</AssemblyName>
+    <AssemblyName>EBInstPack</AssemblyName>
     <RootNamespace>EBInstPack</RootNamespace>
     <StartupObject>EBInstPack.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="example-belch\**" />
     <Compile Remove="example-pack15\**" />
     <Compile Remove="example-pack28\**" />
+    <Compile Remove="example-pack2a-min\**" />
     <Compile Remove="example-pack2a\**" />
+    <Compile Remove="example-RD\**" />
     <Compile Remove="vanilla-pack-belch\**" />
+    <EmbeddedResource Remove="example-belch\**" />
     <EmbeddedResource Remove="example-pack15\**" />
     <EmbeddedResource Remove="example-pack28\**" />
+    <EmbeddedResource Remove="example-pack2a-min\**" />
     <EmbeddedResource Remove="example-pack2a\**" />
+    <EmbeddedResource Remove="example-RD\**" />
     <EmbeddedResource Remove="vanilla-pack-belch\**" />
+    <None Remove="example-belch\**" />
     <None Remove="example-pack15\**" />
     <None Remove="example-pack28\**" />
+    <None Remove="example-pack2a-min\**" />
     <None Remove="example-pack2a\**" />
+    <None Remove="example-RD\**" />
     <None Remove="vanilla-pack-belch\**" />
   </ItemGroup>
 

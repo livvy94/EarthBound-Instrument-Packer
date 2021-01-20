@@ -4,57 +4,61 @@ namespace EBInstPack
 {
     class Program
     {
-        const bool DEBUG_MODE = true;
         static void Main(string[] args)
         {
-            var no_arg_mode = args.Length < 2;
             string folderPath;
             byte packNumber = 0xFF;
             string outputFilename = "output";
 
-            if (DEBUG_MODE)
+            Console.Title = "EarthBound Instrument Packer";
+            Console.WriteLine("Command-line usage:");
+            Console.WriteLine("   EBInstPack [folder path in quotes] [intended pack number in hex]");
+            Console.WriteLine("   Or just drag the folder on top of the EXE!");
+            Console.WriteLine("");
+
+            if (args.Length == 1 && args.ToString().EndsWith(".ebm"))
             {
-                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\vanilla-pack-belch";
-                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack28";
-                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack2a";
-                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-pack15";
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\example-RD";
-                packNumber = 0x08;
-                outputFilename = "choirAndPiano";
-                //Note to self: drop the output in the Missingno project since that's already loaded into CoilSnake
+                Console.WriteLine("EBM file stuff isn't finished yet!");
+                Console.ReadLine();
+                return;
             }
-            else if (no_arg_mode)
+
+            if (args.Length == 0) //If they just double-clicked the exe - no args present
             {
                 Console.WriteLine("Input the folder path where the samples & text file are:");
                 folderPath = Console.ReadLine();
-
-                Console.WriteLine("Which pack is this going to replace? (Type it in hex, please.)");
-                packNumber = byte.Parse(Console.ReadLine(), System.Globalization.NumberStyles.HexNumber);
-
-                Console.WriteLine("What would you like the .ccs file to be named?");
-                var nameInput = Console.ReadLine().Trim();
-                if (nameInput != string.Empty)
-                    outputFilename = nameInput;
             }
-            else
+            else folderPath = args[0]; //Use the command-line argument if it's present
+
+            if (args.Length < 2) //If the only arg present is the folder path
             {
-                folderPath = args[0];
-                packNumber = byte.Parse(args[1], System.Globalization.NumberStyles.HexNumber);
+                Console.WriteLine("Which pack is this going to replace?");
+                packNumber = byte.Parse(Console.ReadLine(), System.Globalization.NumberStyles.HexNumber); //TODO: Data validation?
             }
+            else packNumber = byte.Parse(args[1], System.Globalization.NumberStyles.HexNumber);
 
             if (FileIO.FolderNonexistant(folderPath))
             {
                 Console.WriteLine("Folder does not exist!");
                 Console.WriteLine("Make sure you have a folder full of BRRs and a textfile there.");
-                if (no_arg_mode) Console.ReadLine();
+                if (args.Length == 0) Console.ReadLine();
                 return;
             }
 
+            //Start loading BRRs and stuff from the textfile
             var samples = FileIO.LoadBRRs(folderPath);
             var instruments = FileIO.LoadMetadata(folderPath, samples);
 
             //combine all BRRs into a cluster, generate sample pointer table
             var cluster = new BRRCluster(samples);
+
+            var availableBytes = ARAM.maxOffset - ARAM.samplesOffset_1A;
+            if (ARAM.CheckLimit(cluster.DataDump, availableBytes))
+            {
+                Console.WriteLine($"WARNING - You've gone over the ARAM limit by {cluster.DataDump.Length - availableBytes} bytes!");
+                if (args.Length == 0) Console.ReadLine();
+                return;
+            }
 
             //serialize instrument configuration table
             var metadata = new InstrumentConfigurationTable(instruments);
@@ -63,17 +67,15 @@ namespace EBInstPack
             var bin = BinaryBlob.AssembleBin(cluster, metadata);
 
             //Turn the bin into a CCScript file
+            outputFilename = FileIO.GetFolderNameFromPath(folderPath);
             var ccscript = CCScriptOutput.Generate(bin, packNumber, outputFilename);
 
             //Save the ccscript to output.ccs
             FileIO.SaveTextfile(ccscript, folderPath, outputFilename); //output to the same folder the BRRs are in
             Console.WriteLine($"Wrote {outputFilename}.ccs!");
 
-            if (no_arg_mode)
-            {
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-            }
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }

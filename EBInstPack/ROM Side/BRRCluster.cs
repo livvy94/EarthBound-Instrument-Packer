@@ -33,12 +33,12 @@ namespace EBInstPack
         {
             get
             {
-                var aramOffset = new byte[] { 0xB0, 0x95 };
+                var aramOffset = HexHelpers.UInt16toByteArray(ARAM.samplesOffset_1A);
 
                 var dump = samples.SelectMany(s => s.data).ToList();
 
                 var result = new List<byte>();
-                result.AddRange(HexHelpers.IntToByteArray_Length2(dump.Count));
+                result.AddRange(HexHelpers.UInt16toByteArray((ushort)dump.Count));
                 result.AddRange(aramOffset);
                 result.AddRange(dump);
                 return result.ToArray();

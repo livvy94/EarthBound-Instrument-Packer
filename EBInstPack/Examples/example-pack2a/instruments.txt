@@ -1,0 +1,10 @@
+#samples
+{
+  "BassDrum.brr"       $9F $8A $00  $04 $00
+  "DeliaBass.brr"      $9F $8A $00  $04 $00
+  "DeliaMelodica.brr"  $9F $8A $00  $04 $00
+  "DeliaSine.brr"      $9F $8A $00  $04 $00
+  "SCTamborine.brr"    $9F $8A $00  $04 $00
+  "Shaker.brr"         $9F $8A $00  $04 $00
+  "SnareDrum.brr"      $9F $8A $00  $04 $00
+}

@@ -7,6 +7,7 @@ namespace EBInstPack
         public int loopPoint = 0;
         public List<byte> data = new List<byte>();
         public string filename = string.Empty;
+        public int aramOffset = -1; //TODO: Use this to store the offset while the text is being built
     }
 
     class BRRFunctions

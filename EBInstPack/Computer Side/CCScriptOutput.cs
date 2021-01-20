@@ -22,25 +22,10 @@ namespace EBInstPack
             result.Append(outputFilename);
             result.Append(": {");
             result.Append(NEWLINE);
-            result.Append("\"[");
-            result.Append(HexConvert(bin));
-            result.Append("]\"");
+            result.Append(HexHelpers.HexConvert(bin, true));
             result.Append(NEWLINE);
             result.Append("}");
 
-            return result.ToString();
-        }
-
-        private static string HexConvert(byte[] input) //TODO: Move to HexHelpers
-        {
-            var result = new StringBuilder();
-            foreach (byte bytes in input)
-            {
-                result.Append(bytes.ToString("X2"));
-                result.Append(' ');
-            }
-
-            result.Length--; //remove the last space
             return result.ToString();
         }
 
