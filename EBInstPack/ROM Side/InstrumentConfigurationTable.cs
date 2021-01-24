@@ -5,22 +5,21 @@ namespace EBInstPack
     class InstrumentConfigurationTable
     {
         private readonly List<Instrument> instruments;
+        private ushort instrumentConfigTableOffset;
 
-        public InstrumentConfigurationTable(List<Instrument> instruments)
+        public InstrumentConfigurationTable(List<Instrument> instruments, ushort offset)
         {
             this.instruments = instruments; //passed in from Program.cs
+            this.instrumentConfigTableOffset = offset;
         }
 
         public byte[] Header
         {
             get
             {
-                //This is the part of the pack that's like "copy [size of the data] to [ARAM offset]"
-                var aramOffset = HexHelpers.UInt16toByteArray(ARAM.instrumentConfigTableOffset_1A);
-
                 var result = new List<byte>();
-                result.AddRange(HexHelpers.UInt16toByteArray((ushort)DataDump.Length)); //Size
-                result.AddRange(aramOffset); //Offset
+                result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian((ushort)DataDump.Length)); //take the next X bytes
+                result.AddRange(HexHelpers.UInt16ToByteArray_BigEndian(instrumentConfigTableOffset)); //and load them into X offset
                 return result.ToArray();
             }
         }

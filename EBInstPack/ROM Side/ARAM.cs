@@ -5,6 +5,9 @@ namespace EBInstPack
 {
     class ARAM
     {
+        //This information is here for reference.
+        //"default" in config.txt should cause the 1A values to be used
+
         //Offsets
         public const UInt16 noteDataOffset = 0x4800; //This offset is where the contents of .EBM files gets dumped
         public const UInt16 sampleDirectoryOffset = 0x6C00; //the start of the sample directory
@@ -17,6 +20,7 @@ namespace EBInstPack
         public const UInt16 sampleDirectoryOffset_1A = sampleDirectoryOffset + 0x1A * 4; //6C68
         public const UInt16 instrumentConfigTableOffset_1A = instrumentConfigTableOffset + 0x1A * 6; //6E9C
         public const UInt16 samplesOffset_1A = 0x95B0;
+        public const byte defaultFirstSampleIndex = 0x1A;
 
         //Methods for calculating how much available space there is at any given part of ARAM
         public static int CalculateOverwrittenBytes(byte[] data, int maxPossibleValue)

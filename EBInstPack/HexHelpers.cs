@@ -11,30 +11,25 @@ namespace EBInstPack
         //I'm putting them here so I can save them for future projects
 
         internal static int OffsetConvert_PCtoHiROM(int input) => input + 0xC00000; //Including these so I remember how the conversion works
+        //internal static int OffsetConvert_HiROMtoPC(int input) => input - 0xC00000; //This one's unused though
 
-        internal static byte[] UInt16toByteArray(UInt16 number) //TODO: replace useage of BitConverter (below) with this
+        internal static byte[] UInt16toByteArray_LittleEndian(UInt16 number)
         {
             var result = new byte[2];
             BinaryPrimitives.TryWriteUInt16LittleEndian(result, number);
             return result;
         }
 
-        //internal static int OffsetConvert_HiROMtoPC(int input) => input - 0xC00000; //This one's unused though
-        static int HexConvert(string input) => Convert.ToInt32(input, 16);
+        internal static byte[] UInt16ToByteArray_BigEndian(UInt16 number) //use this one for the ARAM offsets
+        {
+            var result = new byte[2];
+            BinaryPrimitives.TryWriteUInt16BigEndian(result, number);
+            return result;
+        }
 
         public static Int16 ByteArrayToInt(byte[] input)
         {
             return BitConverter.ToInt16(input);
-        }
-
-        public static byte[] IntToByteArray_Length2(int input)
-        {
-            var temp = BitConverter.GetBytes((Int16)input);
-
-            if (!BitConverter.IsLittleEndian)
-                Array.Reverse(temp);
-
-            return temp;
         }
 
         public static byte[] IntsToByteArray_Length2(List<int> input)
@@ -43,7 +38,7 @@ namespace EBInstPack
 
             foreach (var num in input)
             {
-                result.AddRange(IntToByteArray_Length2(num));
+                result.AddRange(UInt16toByteArray_LittleEndian((ushort)num));
             }
 
             return result.ToArray();
@@ -66,6 +61,13 @@ namespace EBInstPack
                 return result.ToString();
         }
 
-        //TODO: Make something that turns 6C68 into new byte[] { 0x68, 0x6C } so implementing the consts in ARAM.cs is easier
+        //https://docs.microsoft.com/en-us/dotnet/api/system.buffers.binary.binaryprimitives
+        //TryReadUInt16LittleEndian(ReadOnlySpan<Byte>, UInt16)	- Reads a UInt16 from the beginning of a read-only span of bytes, as little endian.
+        //TryReadUInt16BigEndian(ReadOnlySpan<Byte>, UInt16) - Reads a UInt16 from the beginning of a read-only span of bytes, as big endian.
+
+        //TryWriteUInt16BigEndian(Span<Byte>, UInt16) - Writes a UInt16 into a span of bytes, as big endian.
+        //TryWriteUInt16LittleEndian(Span<Byte>, UInt16) - Writes a UInt16 into a span of bytes, as little endian.
+
+        //ReverseEndianness(UInt16)
     }
 }

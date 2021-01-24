@@ -8,7 +8,8 @@ namespace EBInstPack
 {
     class FileIO
     {
-        const string TEXT_FILE_NAME = "instruments.txt";
+        const string INSTRUMENTS_TEXTFILE_NAME = "instruments.txt";
+        const string CONFIG_TEXTFILE_NAME = "config.txt"; //TODO: implement me
         const string OUTPUT_FILENAME = "pack.bin";
 
         internal static bool FolderNonexistant(string folderPath)
@@ -18,7 +19,7 @@ namespace EBInstPack
 
         internal static string GetFullTextfilePath(string folderPath)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), folderPath, TEXT_FILE_NAME);
+            return Path.Combine(Directory.GetCurrentDirectory(), folderPath, INSTRUMENTS_TEXTFILE_NAME);
         }
         internal static string GetFullPath(string folderPath)
         {
@@ -68,12 +69,14 @@ namespace EBInstPack
 
         internal static List<Instrument> LoadMetadata(string folderPath, List<BRRFile> samples)
         {
+            //TODO: Make initialIndex passed in from Program.cs!!!!
+
             //rip through the textfile
             //for each line, check the contents of the quotation marks against every BRR File using FindDuplicate
             var lines = File.ReadLines(GetFullTextfilePath(folderPath));
 
             var result = new List<Instrument>();
-            byte initialIndex = 0x1A; //This should be 1A when paired with Pack 05, which is essentially used all throughout the game
+            var initialIndex = ARAM.defaultFirstSampleIndex; //This should be 1A when paired with Pack 05, which is essentially used all throughout the game
             byte instIndex = initialIndex;
             foreach (var line in lines)
             {
@@ -81,7 +84,7 @@ namespace EBInstPack
                 var lineContents = CleanTextFileLine(line);
 
                 //TODO: Make it so you can have spaces in the BRR filename...
-                //It's splitting incorrectly on filenames like "Piano (High).brr"
+                //It splits incorrectly if stuff like "Piano (High).brr" is in the textfile
 
                 var temp = new Instrument
                 {
