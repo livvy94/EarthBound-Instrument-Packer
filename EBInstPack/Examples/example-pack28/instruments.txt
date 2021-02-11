@@ -1,4 +1,0 @@
-#samples
-{
-  "c700square.brr"   $FF $E0 $B8  $04 $00
-}

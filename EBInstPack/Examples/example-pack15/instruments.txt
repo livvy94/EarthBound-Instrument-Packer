@@ -1,8 +1,0 @@
-#samples
-{  Filename         ADSR info    Tuning
-  "1Aslosh.brr"     $FF $E0 $B8  $02 $40
-  "1Btoot.brr"      $FF $E0 $B8  $05 $F0
-  "1Cdoor.brr"      $FF $E0 $B8  $02 $40
-  "1Dpad.brr"       $FF $E0 $B8  $04 $A0
-  "1Eweirdbass.brr" $8F $F0 $B8  $06 $F0
-}

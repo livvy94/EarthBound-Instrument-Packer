@@ -1,6 +1,6 @@
 # EarthBound N-SPC Instrument Pack Documentation
 
-The following is the format used for all SPC Transfer Blocks:
+The following is the format used for all SPC Transfer Blocks (which the community has also been calling "subpacks"):
 - Size in bytes of the data
 - ARAM offset to load it into
 

@@ -41,7 +41,7 @@ namespace EBInstPack
 
                 var result = new List<byte>();
                 result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian((ushort)dump.Count)); //take the next X bytes
-                result.AddRange(HexHelpers.UInt16ToByteArray_BigEndian(samplesOffset)); //and load them into X offset
+                result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian(samplesOffset)); //and load them into X offset
                 result.AddRange(dump); //the BRR files
                 return result.ToArray();
             }
@@ -65,7 +65,7 @@ namespace EBInstPack
 
                 var result = new List<byte>();
                 result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian((ushort)pointers.Count)); //take the next X bytes
-                result.AddRange(HexHelpers.UInt16ToByteArray_BigEndian(sampleDirectoryOffset)); //and load them into X offset
+                result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian(sampleDirectoryOffset)); //and load them into X offset
                 result.AddRange(pointers); //the sample directory
                 return result.ToArray();
             }

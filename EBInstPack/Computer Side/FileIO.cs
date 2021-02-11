@@ -8,18 +8,16 @@ namespace EBInstPack
 {
     class FileIO
     {
-        const string INSTRUMENTS_TEXTFILE_NAME = "instruments.txt";
-        const string CONFIG_TEXTFILE_NAME = "config.txt"; //TODO: implement me
-        const string OUTPUT_FILENAME = "pack.bin";
+        const string CONFIG_TEXTFILE_NAME = "config.txt";
 
         internal static bool FolderNonexistant(string folderPath)
         {
-            return !File.Exists(GetFullTextfilePath(folderPath));
+            return !File.Exists(GetFullConfigFilepath(folderPath));
         }
 
-        internal static string GetFullTextfilePath(string folderPath)
+        internal static string GetFullConfigFilepath(string folderPath)
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), folderPath, INSTRUMENTS_TEXTFILE_NAME);
+            return Path.Combine(Directory.GetCurrentDirectory(), folderPath, CONFIG_TEXTFILE_NAME);
         }
         internal static string GetFullPath(string folderPath)
         {
@@ -47,6 +45,7 @@ namespace EBInstPack
 
                 if (BRRFunctions.FileHasNoLoopHeader(fileContents))
                 {
+                    //rudimentary support for raw, non-AMK BRRs
                     result.Add(new BRRFile
                     {
                         data = fileContents.ToList(),
@@ -56,6 +55,7 @@ namespace EBInstPack
                 }
                 else
                 {
+                    //separate the loop point header and the actual BRR data, and add them to the list
                     result.Add(new BRRFile
                     {
                         data = BRRFunctions.IsolateBRRdata(fileContents),
@@ -69,11 +69,9 @@ namespace EBInstPack
 
         internal static List<Instrument> LoadMetadata(string folderPath, List<BRRFile> samples)
         {
-            //TODO: Make initialIndex passed in from Program.cs!!!!
-
             //rip through the textfile
             //for each line, check the contents of the quotation marks against every BRR File using FindDuplicate
-            var lines = File.ReadLines(GetFullTextfilePath(folderPath));
+            var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
 
             var result = new List<Instrument>();
             var initialIndex = ARAM.defaultFirstSampleIndex; //This should be 1A when paired with Pack 05, which is essentially used all throughout the game
@@ -85,6 +83,7 @@ namespace EBInstPack
 
                 //TODO: Make it so you can have spaces in the BRR filename...
                 //It splits incorrectly if stuff like "Piano (High).brr" is in the textfile
+                //Maybe split on quote marks, then do this kind of splitting on the rest of it?? Ugh
 
                 var temp = new Instrument
                 {
@@ -104,8 +103,68 @@ namespace EBInstPack
             return result;
         }
 
-        static readonly string[] skippableStrings = new string[] { "{", "}", "#instruments", "#samples" };
-        internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.Contains);
+        internal static PackConfiguration LoadConfig(string folderPath)
+        {
+            var result = new PackConfiguration()
+            {
+                packNumber = 0xFF,
+                sampleDirectoryOffset = 0xFFFF,
+                instrumentConfigOffset = 0xFFFF,
+                brrDumpOffset = 0xFFFF
+            };
+
+            //load the first three lines of the config.txt
+            var lines = File.ReadLines(GetFullConfigFilepath(folderPath)).ToList();
+            for (int i = 0; i < 3; i++)
+            {
+                var line = lines[i].ToLower().Split(": ");
+                if (line[0].Contains("pack num"))
+                {
+                    if (line[1].Contains("default"))
+                        throw new Exception("Please specify a pack number!"); //TODO: Try this and see if it works as expected
+                    else
+                        result.packNumber = HexHelpers.HexStringToByte(line[1]);
+                }
+                else if (line[0].Contains("base inst"))
+                {
+                    if (line[1].Contains("default"))
+                        result.SetBaseInstrument(0x1A);
+                    else
+                        result.SetBaseInstrument(HexHelpers.HexStringToByte(line[1]));
+                }
+                else if (line[0].Contains("brr") || line[0].Contains("sample"))
+                {
+                    if (line[1].Contains("default"))
+                        result.brrDumpOffset = ARAM.samplesOffset_1A;
+                    else
+                        result.brrDumpOffset = HexHelpers.HexStringToUInt16(line[1]);
+                }
+            }
+
+            //Check that everything's there
+            if (result.sampleDirectoryOffset == 0xFFFF)
+                throw new Exception("Couldn't find a value for Sample Directory Offset in config.txt!");
+            else if (result.brrDumpOffset == 0xFFFF)
+                throw new Exception("Couldn't find a value for BRR Sample Dump Offset in config.txt!");
+            else if (result.instrumentConfigOffset == 0xFFFF)
+                throw new Exception("Couldn't find a value for Instrument Config Table Offset in config.txt!");
+            else if (result.packNumber == 0xFF)
+                throw new Exception("Couldn't find a value for Pack Number in config.txt!");
+
+            return result;
+        }
+
+        static readonly string[] skippableStrings = new string[]
+        {
+            "{",
+            "}",
+            "#",
+            "dump offset",
+            "pack num",
+            "base instrument",
+        };
+
+        internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.ToLower().Contains);
 
         internal static List<string> CleanTextFileLine(string line)
         {
