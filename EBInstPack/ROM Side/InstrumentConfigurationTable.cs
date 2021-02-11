@@ -19,7 +19,7 @@ namespace EBInstPack
             {
                 var result = new List<byte>();
                 result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian((ushort)DataDump.Length)); //take the next X bytes
-                result.AddRange(HexHelpers.UInt16ToByteArray_BigEndian(instrumentConfigTableOffset)); //and load them into X offset
+                result.AddRange(HexHelpers.UInt16toByteArray_LittleEndian(instrumentConfigTableOffset)); //and load them into X offset
                 return result.ToArray();
             }
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace EBInstPack
 {
@@ -8,7 +6,7 @@ namespace EBInstPack
     {
         const string NEWLINE = "\r\n";
 
-        internal static string Generate(byte[] bin, byte packNumber, string outputFilename)
+        internal static string Generate(byte[] bin, byte packNumber, byte maxDelay, string outputFilename)
         {
             var result = new StringBuilder();
             result.Append("command inst_pack_loc (target) \"[{byte[2] target} {byte[0] target} {byte[1] target}]\"");
@@ -17,6 +15,9 @@ namespace EBInstPack
             result.Append($"//Instrument Pack {packNumber:X2}");
             result.Append(NEWLINE);
             result.Append($"ROM[{GetPointerOffset(packNumber)}] = inst_pack_loc({outputFilename})");
+            result.Append(NEWLINE);
+            result.Append(NEWLINE);
+            result.Append("//Highest possible delay value for this pack: " + maxDelay.ToString("X2"));
             result.Append(NEWLINE);
             result.Append(NEWLINE);
             result.Append(outputFilename);
@@ -31,6 +32,9 @@ namespace EBInstPack
 
         private static string GetPointerOffset(int packNumber)
         {
+            //This method calculates where the pack pointer is, so we can make CoilSnake overwrite
+            //it with whatever ROM offset the contents of the CCScript file gets inserted into!
+
             //A documentation of instrument packs can be found here:
             //https://gist.github.com/vince94/cb70ddd4c5309c0c52e662f985d6648b
 

@@ -66,16 +66,13 @@ namespace EBInstPack
         //public const UInt16 delayOffsetFor0F = 0x8700;
         //public const UInt16 delayOffsetFor10 = 0x7F00;
 
-        public static byte ReturnMaxDelayPossible(byte[] data, bool startAt1A)
+        public static byte ReturnMaxDelayPossible(byte[] data, PackConfiguration config)
         {
-            //TODO: Make it so the startAt1A variable is passed in from Program.cs
-            //TODO: actually use this method to display a message and/or add a comment to the CCScript file
-            int sampleDumpStart = startAt1A ? samplesOffset : sampleDirectoryOffset_1A;
+            int sampleDumpStart = config.brrDumpOffset;
             int sampleDumpEnd = sampleDumpStart + data.Length;
 
-            //Start at a ludicrous amount of delay that'd never be used, like 10
-            byte currentDelayValue = 0x10;
-            int currentStartingOffset = 0x7F00;
+            byte currentDelayValue = 0x10; //a ludicrous amount of delay that'll never be used
+            int currentStartingOffset = 0x7F00; //the starting offset for that amount
 
             while (currentStartingOffset < sampleDumpEnd)
             {

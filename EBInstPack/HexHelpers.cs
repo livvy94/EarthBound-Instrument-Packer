@@ -20,13 +20,6 @@ namespace EBInstPack
             return result;
         }
 
-        internal static byte[] UInt16ToByteArray_BigEndian(UInt16 number) //use this one for the ARAM offsets
-        {
-            var result = new byte[2];
-            BinaryPrimitives.TryWriteUInt16BigEndian(result, number);
-            return result;
-        }
-
         public static Int16 ByteArrayToInt(byte[] input)
         {
             return BitConverter.ToInt16(input);
@@ -59,6 +52,16 @@ namespace EBInstPack
                 return "\"[" + result.ToString() + "]\"";
             else
                 return result.ToString();
+        }
+
+        public static UInt16 HexStringToUInt16(string input)
+        {
+            return Convert.ToUInt16(input.Trim(), 16);
+        }
+
+        public static byte HexStringToByte(string input)
+        {
+            return Convert.ToByte(input.Trim(), 16);
         }
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.buffers.binary.binaryprimitives

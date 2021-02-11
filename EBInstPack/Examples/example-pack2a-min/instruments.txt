@@ -1,9 +1,0 @@
-#samples
-{
-    "1ADeliaBass.brr" $00 $00 $7F $01 $FE
-    "1BDeliaSine.brr" $8F $E0 $7F $07 $A5
-    "1CMelodica.brr"  $86 $E0 $7F $07 $A9
-    "1DTamborine.brr" $00 $00 $7F $03 $D4
-    "1EShaker.brr"    $00 $00 $7F $05 $47
-    "1FSnareDrum.brr" $8F $E0 $7F $03 $D4
-}
