@@ -4,14 +4,13 @@ Usage:
 
 Create a folder with this structure:
 ```
-instruments.txt   <-- contains AddMusicK-style instrument definitions
-config.txt        <-- contains ARAM offsets to use (or "default" if you don't want to mess with that)
-Flute.brr
+config.txt   <-- take a look at the Examples folder to see what goes in here
+Flute.brr    <-- AddMusicK-compliant BRR files
 Strings.brr
 asdfjkl.brr
 ```
 
-Run the tool and point it to this folder, and it spits out a CCScript file.
+Drop your folder on the EXE (or give it the right path), and it spits out a CCScript file.
 
 Compile this into a CoilSnake project, and the ROM will have the custom instruments automatically inserted and repointed for you!
 
