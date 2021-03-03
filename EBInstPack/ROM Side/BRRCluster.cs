@@ -16,11 +16,14 @@ namespace EBInstPack
             this.samplesOffset = samplesOffset;
             this.sampleDirectoryOffset = sampleDirectoryOffset;
 
+            Program.PrintMessage("Loading BRRs...");
+
             //Generate the dump, keeping track of each sample's offsets all the while
             var dump = new List<byte>();
             var currentOffset = (int)samplesOffset; //start at the end of Pack 05, where instrument 1A should be (unless a different offset is passed in)
             foreach (var sample in samples)
             {
+                Program.PrintMessage(sample.filename.PadRight(27, '.') + sample.data.Count.ToString().PadLeft(6, '.') + " bytes");
                 dump.AddRange(sample.data);
 
                 entries.Add(new PointerTableEntry

@@ -30,6 +30,7 @@ namespace EBInstPack
 
         public static bool CheckLimit(byte[] data, int maxPossibleValue) //TODO: test this lol
         {
+            Program.PrintMessage(data.Length.ToString() + " bytes total (" + maxPossibleValue.ToString() + " bytes available)");
             if (CalculateOverwrittenBytes(data, maxPossibleValue) > 0)
                 return false;
             else

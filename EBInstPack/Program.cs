@@ -6,12 +6,15 @@ namespace EBInstPack
     {
         static void Main(string[] args)
         {
-            const bool DEBUG = false;
+            const bool DEBUG = true;
             string folderPath;
             string outputFilename = "output";
 
             //TODO: Change the program structure so the output isn't one big blob.
             //It would be nice if all three transfers are isolated and labeled via CCScript comments.
+
+            //TODO:
+            //Verify duplicate patches!
 
             Console.Title = "EarthBound Instrument Packer";
             Console.WriteLine("Command-line usage:");
@@ -21,7 +24,8 @@ namespace EBInstPack
 
             if (DEBUG)
             {
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\exampleAscent";
+                //folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\exampleAscent";
+                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\example-pack2a";
             }
             else
             {
@@ -53,6 +57,7 @@ namespace EBInstPack
             var availableBytes = ARAM.maxOffset - config.brrDumpOffset; //Does this line need to be here? Can it be moved into ARAM.cs?
             if (ARAM.CheckLimit(cluster.SampleData, availableBytes))
             {
+                Console.WriteLine();
                 Console.WriteLine($"WARNING - You've gone over the ARAM limit by {cluster.SampleData.Length - availableBytes} bytes!");
                 Console.WriteLine("Please try again...");
                 Console.ReadLine();
@@ -79,6 +84,11 @@ namespace EBInstPack
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+        }
+
+        public static void PrintMessage(string message)
+        {
+            Console.WriteLine(message);
         }
     }
 }
