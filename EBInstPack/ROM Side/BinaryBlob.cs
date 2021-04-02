@@ -1,20 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EBInstPack
 {
     class BinaryBlob
     {
-        //TODO: make it so it isn't an assembled binary blob and everything is separated...
-        internal static byte[] AssembleBin(BRRCluster cluster, InstrumentConfigurationTable metadata)
+        public static byte[] GenerateSampleDirectory(Config config, List<BRRFile> samples)
         {
-            var END_OF_TRANSFER = new byte[] { 0x00, 0x00 };
-            var pack = new List<byte>();
-            pack.AddRange(cluster.SampleDirectory);
-            pack.AddRange(cluster.SampleData);
-            pack.AddRange(metadata.Header);
-            pack.AddRange(metadata.DataDump);
-            pack.AddRange(END_OF_TRANSFER);
-            return pack.ToArray();
+            var currentAramOffset = config.offsetForBRRdump;
+
+            var resultSampleDirectory = new List<SampleDirectory>();
+            foreach (var patch in config.patches)
+            {
+                bool alreadyExisted = false; //This is initialized at the start of each iteration, so no need to set it back
+                foreach (var entry in resultSampleDirectory)
+                {
+                    if (entry.Filename == patch.Filename) //check for duplicates! one sample --> many patches
+                    {
+                        alreadyExisted = true;
+                        //Console.WriteLine($"Adding a duplicate for {patch.Filename} to the sample directory!");
+                        resultSampleDirectory.Add(entry); //add an identical copy of the current entry
+                    }
+                }
+
+                if (alreadyExisted) continue;
+
+                var currentSample = BRRFunctions.Find(patch.Filename, samples);
+                //Console.WriteLine($"Adding {patch.Filename} to the sample directory!");
+                resultSampleDirectory.Add(new SampleDirectory //add a new entry
+                {
+                    aramOffset = currentAramOffset,
+                    loopOffset = (ushort)(currentAramOffset + currentSample.loopPoint),
+                    Filename = currentSample.filename,
+                });
+
+                currentAramOffset += (ushort)currentSample.data.Count;
+            }
+
+            //turn the entire thing into a byte array
+            var result = new List<byte>();
+            foreach (var entry in resultSampleDirectory)
+            {
+                result.AddRange(entry.MakeHex());
+            }
+            return result.ToArray();
+        }
+
+        public static byte[] GenerateBRRDump(List<BRRFile> samples)
+        {
+            var result = new List<byte>();
+
+            foreach (var sample in samples)
+            {
+                Console.WriteLine($"Loading {sample.filename}".PadRight(40, '.') + sample.data.Count.ToString().PadLeft(4, '.') + " bytes");
+                result.AddRange(sample.data);
+            }
+            return result.ToArray();
         }
     }
 }
