@@ -24,7 +24,7 @@ namespace EBInstPack
             return Path.Combine(Directory.GetCurrentDirectory(), folderPath);
         }
 
-        internal static string GetFolderNameFromPath(string folderPath)
+        internal static string GetFolderName(string folderPath)
         {
             return new DirectoryInfo(folderPath).Name;
         }
@@ -50,7 +50,7 @@ namespace EBInstPack
                     {
                         data = fileContents.ToList(),
                         loopPoint = 0,
-                        filename = info.Name
+                        filename = info.Name,
                     });
                 }
                 else
@@ -60,58 +60,18 @@ namespace EBInstPack
                     {
                         data = BRRFunctions.IsolateBRRdata(fileContents),
                         loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
-                        filename = info.Name
+                        filename = info.Name,
                     });
                 }
             }
             return result;
         }
 
-        internal static List<Instrument> LoadMetadata(string folderPath, List<BRRFile> samples)
+        internal static Config LoadConfig(string folderPath)
         {
-            //rip through the textfile
-            //for each line, check the contents of the quotation marks against every BRR File using FindDuplicate
-            var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
-
-            var result = new List<Instrument>();
-            var initialIndex = ARAM.defaultFirstSampleIndex; //This should be 1A when paired with Pack 05, which is essentially used all throughout the game
-            byte instIndex = initialIndex;
-            foreach (var line in lines)
-            {
-                if (LineShouldBeSkipped(line)) continue;
-                var lineContents = CleanTextFileLine(line);
-
-                //TODO: Make it so you can have spaces in the BRR filename...
-                //It splits incorrectly if stuff like "Piano (High).brr" is in the textfile
-                //Maybe split on quote marks, then do this kind of splitting on the rest of it?? Ugh
-
-                var temp = new Instrument
-                {
-                    index = instIndex,
-                    ADSR1 = byte.Parse(lineContents[1], NumberStyles.HexNumber),
-                    ADSR2 = byte.Parse(lineContents[2], NumberStyles.HexNumber),
-                    Gain = byte.Parse(lineContents[3], NumberStyles.HexNumber),
-                    Multiplier = byte.Parse(lineContents[4], NumberStyles.HexNumber),
-                    Sub = byte.Parse(lineContents[5], NumberStyles.HexNumber),
-                    sample = BRRFunctions.FindDuplicate(samples, lineContents[0])
-                };
-
-                result.Add(temp);
-                instIndex++;
-            }
-
-            return result;
-        }
-
-        internal static PackConfiguration LoadConfig(string folderPath)
-        {
-            var result = new PackConfiguration()
-            {
-                packNumber = 0xFF,
-                sampleDirectoryOffset = 0xFFFF,
-                instrumentConfigOffset = 0xFFFF,
-                brrDumpOffset = 0xFFFF
-            };
+            byte tempPackNum = 0xFF;
+            byte tempBaseInst = 0xFF;
+            ushort tempBRRoffset = 0xFFFF;
 
             //load the first three lines of the config.txt
             var lines = File.ReadLines(GetFullConfigFilepath(folderPath)).ToList();
@@ -123,33 +83,79 @@ namespace EBInstPack
                     if (line[1].Contains("default"))
                         throw new Exception("Please specify a pack number!"); //TODO: Try this and see if it works as expected
                     else
-                        result.packNumber = HexHelpers.HexStringToByte(line[1]);
+                        tempPackNum = HexHelpers.HexStringToByte(line[1]);
                 }
                 else if (line[0].Contains("base inst"))
                 {
                     if (line[1].Contains("default"))
-                        result.SetBaseInstrument(0x1A);
+                        tempBaseInst = 0x1A;
                     else
-                        result.SetBaseInstrument(HexHelpers.HexStringToByte(line[1]));
+                        tempBaseInst = HexHelpers.HexStringToByte(line[1]);
                 }
                 else if (line[0].Contains("brr") || line[0].Contains("sample"))
                 {
                     if (line[1].Contains("default"))
-                        result.brrDumpOffset = ARAM.samplesOffset_1A;
+                        tempBRRoffset = ARAM.samplesOffset_1A;
                     else
-                        result.brrDumpOffset = HexHelpers.HexStringToUInt16(line[1]);
+                        tempBRRoffset = HexHelpers.HexStringToUInt16(line[1]);
                 }
             }
 
+            //load patches here
+            var tempPatches = LoadMetadata(folderPath);
+
+            var result = new Config(GetFolderName(folderPath), tempPackNum, tempBaseInst, tempBRRoffset, tempPatches);
+
             //Check that everything's there
-            if (result.sampleDirectoryOffset == 0xFFFF)
+            if (result.offsetForSampleDir == 0xFFFF)
                 throw new Exception("Couldn't find a value for Sample Directory Offset in config.txt!");
-            else if (result.brrDumpOffset == 0xFFFF)
+            else if (result.offsetForBRRdump == 0xFFFF)
                 throw new Exception("Couldn't find a value for BRR Sample Dump Offset in config.txt!");
-            else if (result.instrumentConfigOffset == 0xFFFF)
+            else if (result.offsetForInstrumentConfig == 0xFFFF)
                 throw new Exception("Couldn't find a value for Instrument Config Table Offset in config.txt!");
             else if (result.packNumber == 0xFF)
                 throw new Exception("Couldn't find a value for Pack Number in config.txt!");
+
+            return result;
+        }
+
+        internal static List<Patch> LoadMetadata(string folderPath)
+        {
+            //rip through the textfile
+            var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
+
+            byte instIndex = ARAM.defaultFirstSampleIndex;
+            var result = new List<Patch>();
+            foreach (var line in lines)
+            {
+                //set the base instrument if it's set to something other than "default"
+                if (line.ToLower().Contains("base instrument") && !line.Contains("default"))
+                {
+                    var splitLine = line.Split(": ")[1];
+                    instIndex = HexHelpers.HexStringToByte(splitLine);
+                }
+
+                if (LineShouldBeSkipped(line)) continue;
+                var lineContents = CleanTextFileLine(line);
+
+                //TODO: Make it so you can have spaces in the BRR filename...
+                //It splits incorrectly if stuff like "Piano (High).brr" is in the textfile
+                //Maybe split on quote marks, then do this kind of splitting on the rest of it?? Ugh
+
+                var temp = new Patch
+                {
+                    index = instIndex,
+                    ADSR1 = byte.Parse(lineContents[1], NumberStyles.HexNumber),
+                    ADSR2 = byte.Parse(lineContents[2], NumberStyles.HexNumber),
+                    Gain = byte.Parse(lineContents[3], NumberStyles.HexNumber),
+                    Multiplier = byte.Parse(lineContents[4], NumberStyles.HexNumber),
+                    Sub = byte.Parse(lineContents[5], NumberStyles.HexNumber),
+                    Filename = lineContents[0]
+                };
+
+                result.Add(temp);
+                instIndex++;
+            }
 
             return result;
         }
@@ -179,7 +185,6 @@ namespace EBInstPack
 
             return result;
         }
-
 
         public static void SaveTextfile(string result, string outputPath, string filename)
         {

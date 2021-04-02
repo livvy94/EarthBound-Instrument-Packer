@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EBInstPack
 {
@@ -37,23 +36,6 @@ namespace EBInstPack
             return result.ToArray();
         }
 
-        public static string HexConvert(byte[] input, bool includeQuotesAndBrackets)
-        {
-            var result = new StringBuilder();
-            foreach (byte bytes in input)
-            {
-                result.Append(bytes.ToString("X2"));
-                result.Append(' ');
-            }
-
-            result.Length--; //remove the last space
-
-            if (includeQuotesAndBrackets)
-                return "\"[" + result.ToString() + "]\"";
-            else
-                return result.ToString();
-        }
-
         public static UInt16 HexStringToUInt16(string input)
         {
             return Convert.ToUInt16(input.Trim(), 16);
@@ -61,7 +43,14 @@ namespace EBInstPack
 
         public static byte HexStringToByte(string input)
         {
-            return Convert.ToByte(input.Trim(), 16);
+            try
+            {
+                return Convert.ToByte(input.Trim(), 16);
+            }
+            catch
+            {
+                throw new Exception("ERROR! Something went wrong while trying to convert this to a byte: " + input);
+            }
         }
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.buffers.binary.binaryprimitives

@@ -6,6 +6,12 @@
     <AssemblyName>EBInstPack</AssemblyName>
     <RootNamespace>EBInstPack</RootNamespace>
     <StartupObject>EBInstPack.Program</StartupObject>
+    <Product>EarthBound Instrument Packer</Product>
+    <Version>2.1</Version>
+    <Authors>vince94</Authors>
+    <Company />
+    <Description>Leading-brand EarthBound instrument-packing software</Description>
+    <PackageProjectUrl>https://github.com/vince94/EarthBound-Instrument-Packer</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

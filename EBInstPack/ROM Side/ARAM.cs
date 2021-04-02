@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace EBInstPack
 {
     class ARAM
     {
         //This information is here for reference.
-        //"default" in config.txt should cause the 1A values to be used
+        //"default" in config.txt causes the values for 1A to be used
 
         //Offsets
         public const UInt16 noteDataOffset = 0x4800; //This offset is where the contents of .EBM files gets dumped
@@ -28,19 +27,27 @@ namespace EBInstPack
             return maxPossibleValue - data.Length;
         }
 
+        public static bool CheckBRRLimit(byte[] brrDump, ushort offset)
+        {
+            //check if there's too much BRR data to fit into ARAM
+            var availableBytes = maxOffset - offset;
+            if (CheckLimit(brrDump, availableBytes))
+            {
+                Console.WriteLine();
+                Console.WriteLine($"WARNING - You've gone over the ARAM limit by {brrDump.Length - availableBytes} bytes!");
+                return true;
+            }
+
+            return false;
+        }
+
         public static bool CheckLimit(byte[] data, int maxPossibleValue) //TODO: test this lol
         {
-            Program.PrintMessage(data.Length.ToString() + " bytes total (" + maxPossibleValue.ToString() + " bytes available)");
+            Console.WriteLine(data.Length.ToString() + " total bytes of BRR data (" + maxPossibleValue.ToString() + " bytes available)");
             if (CalculateOverwrittenBytes(data, maxPossibleValue) > 0)
                 return false;
             else
                 return true;
-        }
-
-        public static bool CheckLimit(List<byte> data, int maxPossibleValue)
-        {
-            var temp = data.ToArray();
-            return CheckLimit(temp, maxPossibleValue);
         }
 
         //The delay offset for 00 is 0xFF00, and each subsequent value is 0x0800 bytes less than this.
@@ -67,12 +74,12 @@ namespace EBInstPack
         //public const UInt16 delayOffsetFor0F = 0x8700;
         //public const UInt16 delayOffsetFor10 = 0x7F00;
 
-        public static byte ReturnMaxDelayPossible(byte[] data, PackConfiguration config)
+        public static byte GetMaxDelayPossible(byte[] data, Config config)
         {
-            int sampleDumpStart = config.brrDumpOffset;
+            int sampleDumpStart = config.offsetForBRRdump;
             int sampleDumpEnd = sampleDumpStart + data.Length;
 
-            byte currentDelayValue = 0x10; //a ludicrous amount of delay that'll never be used
+            byte currentDelayValue = 0x10; //a ludicrous amount of delay that nobody will ever use
             int currentStartingOffset = 0x7F00; //the starting offset for that amount
 
             while (currentStartingOffset < sampleDumpEnd)
