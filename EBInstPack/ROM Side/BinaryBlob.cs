@@ -30,7 +30,7 @@ namespace EBInstPack
                 resultSampleDirectory.Add(new SampleDirectory //add a new entry
                 {
                     aramOffset = currentAramOffset,
-                    loopOffset = (ushort)(currentAramOffset + currentSample.loopPoint),
+                    loopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint)),
                     Filename = currentSample.filename,
                 });
 
