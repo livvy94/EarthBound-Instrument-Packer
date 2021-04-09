@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EBInstPack
 {
@@ -8,33 +9,36 @@ namespace EBInstPack
         public static byte[] GenerateSampleDirectory(Config config, List<BRRFile> samples)
         {
             var currentAramOffset = config.offsetForBRRdump;
-
+            //Thanks to BlueStone for helping with the following!
+            var samplesByFilename = samples.ToDictionary(sample => sample.filename);
+            var sampleDirectoriesByFilename = new Dictionary<string, SampleDirectory>();
             var resultSampleDirectory = new List<SampleDirectory>();
             foreach (var patch in config.patches)
             {
-                bool alreadyExisted = false; //This is initialized at the start of each iteration, so no need to set it back
-                foreach (var entry in resultSampleDirectory)
+                // If an entry with the same filename was already added, reuse the existing entry.
+                if (sampleDirectoriesByFilename.TryGetValue(patch.Filename, out SampleDirectory entry))
+                    resultSampleDirectory.Add(entry);
+                else
                 {
-                    if (entry.Filename == patch.Filename) //check for duplicates! one sample --> many patches
+                    // We haven't added an entry with this file before, so find the sample and add the entry.
+                    if (!samplesByFilename.TryGetValue(patch.Filename, out BRRFile currentSample))
+                        Console.WriteLine("Sample file \"" + patch.Filename + "\" does not exist!");
+                    else
                     {
-                        alreadyExisted = true;
-                        //Console.WriteLine($"Adding a duplicate for {patch.Filename} to the sample directory!");
-                        resultSampleDirectory.Add(entry); //add an identical copy of the current entry
+                        // Create and add a new entry.
+                        var sampleDirectory = new SampleDirectory
+                        {
+                            aramOffset = currentAramOffset,
+                            loopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint)),
+                            Filename = currentSample.filename,
+                        };
+
+                        sampleDirectoriesByFilename[patch.Filename] = sampleDirectory;
+                        resultSampleDirectory.Add(sampleDirectory);
+
+                        currentAramOffset += (ushort)currentSample.data.Count;
                     }
                 }
-
-                if (alreadyExisted) continue;
-
-                var currentSample = BRRFunctions.Find(patch.Filename, samples);
-                //Console.WriteLine($"Adding {patch.Filename} to the sample directory!");
-                resultSampleDirectory.Add(new SampleDirectory //add a new entry
-                {
-                    aramOffset = currentAramOffset,
-                    loopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint)),
-                    Filename = currentSample.filename,
-                });
-
-                currentAramOffset += (ushort)currentSample.data.Count;
             }
 
             //turn the entire thing into a byte array
