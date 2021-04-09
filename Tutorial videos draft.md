@@ -1,17 +1,36 @@
 # EBMusEd tutorial ideas:
 
-## Notes
-Note lengths: [length in ticks] [optional staccato & volume descriptor]
+## How Audio on the SNES works
+Eight channels, so eight voices can be playing at once, including sound effects which are usually reserved for the last two.
 
-Example: [18]
+Small, carefully-made waveforms, converted into BRR, and loaded into memory
 
-Example: [18 7F] <-- sets the note length to 18, and sets the release time and note volume (separate from channel volume!) to full
+The sound engine, pattern data, and the echo buffer shares the same block of memory, and if you use too much echo, it eats your instruments and sounds like this.
 
-Example: [18 0F] <-- sets the note length to 18, and sets the release time to 0 (makes it really staccato) and sets the volume to full
+Making BRRs will be covered in a future video.
 
-(Show an example of the volume stuff used to create variation)
+## Note Lengths
+One of the worst hurdles to learning EBMusEd is understanding the concept of note lengths.
 
-Tip - Start with 06, then compress as you go with PK Piano
+In trackers, everything is the same length, and in MIDI you just don't worry about stuff like that.
+
+Here, you have to specify note lengths. It's not too bad once you get used to it though.
+
+The format of a note length command is `[number of ticks] [optional staccato & volume descriptor]`
+
+One example is `[18]`
+
+Another example is `[18 7F]`. This sets the note length to 18, and sets the release time and note volume (which is a separate thing from channel volume!) to full
+
+Another example is `[18 0F]`. This sets the note length to 18, and sets the release time to 0 (makes it really staccato) and sets the volume to full.
+
+Here's an example of how changing the volume stuff can be used to create variation.
+
+(example)
+
+Tip - Start with 06, then compress as you go
+
+## Inserting Notes
 
 To insert notes, either use the keyboard or PK Piano.
 
@@ -29,13 +48,17 @@ Make sure each channel ends on the same tick, otherwise it glitches up in-game!
 Don't use Ctrl-S - It saves, then thinks you're typing S and inserts a note
 
 ## Patterns
-Add patterns
+The `Add` button adds a new pattern.
 
-Insert patterns
+The `Insert` button inserts a duplicate of the currently-selected pattern.
 
-Delete patterns - WATCH OUT
+The `Delete` button deletes all instances of the currently-selected pattern - WATCH OUT!
+
+- This is not how these kinds of things normally work, and it's easy to accidentally lose a lot of work.
 
 Repeat & Repeat Position
+
+Make sure each channel in a pattern is exactly the same length, otherwise it causes glitches when you play the song back in-game.
 
 ## Effects
 
