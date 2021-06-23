@@ -62,9 +62,9 @@ namespace EBInstPack
             return result;
         }
 
-        public static bool FileHasNoLoopHeader(byte[] fileData)
+        public static bool FileHasNoLoopHeader(int fileLength)
         {
-            return fileData.Length % 9 == 0; //BRR blocks are 9 bytes long
+            return fileLength % 9 == 0; //BRR blocks are 9 bytes long
         }
     }
 }

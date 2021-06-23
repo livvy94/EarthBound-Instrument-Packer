@@ -1,0 +1,16 @@
+Pack number: 2A
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+    "1A Guitars.brr"              $8F $EC $7F $09 $81
+    "1BPiano.brr"                 $8F $EB $7F $08 $08
+    "1CPianoLow.brr"              $8F $ED $7F $04 $04
+    "1DViolins.brr"               $8F $E0 $7F $07 $E5
+    "1EBassDrum.brr"              $00 $00 $7F $03 $D4
+    "1FSnareDrum.brr"             $00 $00 $7F $07 $A8
+    "20HihatClosed.brr"           $00 $00 $7F $03 $D4
+    "21HihatOpen.brr"             $00 $00 $7F $03 $D4
+    "22AppleIIGS.brr"             $00 $00 $7F $0A $4E
+}

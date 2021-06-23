@@ -1,0 +1,14 @@
+Pack number: 2A
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+  "1APianoFixed.brr"         $FF $E0 $B8  $04 $E0
+  "AcousticTom.brr"          $FF $E0 $B8  $04 $00
+  "AmpGuitarClipped.brr"     $FF $E0 $B8  $07 $A0
+  "PomplamooseBassDrum.brr"  $FF $E0 $B8  $04 $00
+  "PomplamooseSnareDrum.brr" $FF $E0 $B8  $04 $00
+  "SonicBass.brr"            $AF $69 $B8  $03 $C0
+  "SonicBass.brr"            $AF $32 $B8  $03 $C0
+}

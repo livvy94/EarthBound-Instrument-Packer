@@ -5,10 +5,11 @@ namespace EBInstPack
     class ARAM
     {
         //This information is here for reference.
-        //"default" in config.txt causes the values for 1A to be used
+        //Putting "default" in base instrument and sample dump offset causes the values for 1A to be used
+        //"overwrite all" causes the non-1A values to be used!
 
         //Offsets
-        public const UInt16 noteDataOffset = 0x4800; //This offset is where the contents of .EBM files gets dumped
+        public const UInt16 noteDataOffset = 0x4800; //This offset is one of the places where .EBM files get dumped
         public const UInt16 sampleDirectoryOffset = 0x6C00; //the start of the sample directory
         public const UInt16 instrumentConfigTableOffset = 0x6E00; //aka ADSR information & tuning, aka "patches"
         public const UInt16 samplesOffset = 0x7000; //the actual waveform data itself - BRR files
@@ -35,13 +36,15 @@ namespace EBInstPack
             {
                 Console.WriteLine();
                 Console.WriteLine($"WARNING - You've gone over the ARAM limit by {brrDump.Length - availableBytes} bytes!");
+                Console.WriteLine("Please try again...");
+                Console.ReadLine();
                 return true;
             }
 
             return false;
         }
 
-        public static bool CheckLimit(byte[] data, int maxPossibleValue) //TODO: test this lol
+        public static bool CheckLimit(byte[] data, int maxPossibleValue)
         {
             Console.WriteLine(data.Length.ToString() + " total bytes of BRR data (" + maxPossibleValue.ToString() + " bytes available)");
             if (CalculateOverwrittenBytes(data, maxPossibleValue) > 0)
@@ -74,9 +77,9 @@ namespace EBInstPack
         //public const UInt16 delayOffsetFor0F = 0x8700;
         //public const UInt16 delayOffsetFor10 = 0x7F00;
 
-        public static byte GetMaxDelayPossible(byte[] data, Config config)
+        public static byte GetMaxDelayPossible(byte[] data, ushort offsetForBRRdump)
         {
-            int sampleDumpStart = config.offsetForBRRdump;
+            int sampleDumpStart = offsetForBRRdump;
             int sampleDumpEnd = sampleDumpStart + data.Length;
 
             byte currentDelayValue = 0x10; //a ludicrous amount of delay that nobody will ever use

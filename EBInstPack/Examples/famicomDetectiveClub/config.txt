@@ -1,0 +1,17 @@
+Pack number: 2A
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+  "Piano (High).brr"       $FF $EE $A0 $02 $59
+  "Bass (Acoustic).brr"    $FF $F0 $A0 $02 $7B
+  "Gender.brr"             $FF $F0 $A0 $03 $00
+  "Japanesque.brr"         $FF $F0 $A0 $03 $67
+  "ChronoStrings.brr"      $FA $E4 $A0 $02 $23
+  "Drum (Bass).brr"        $FF $E0 $A0 $01 $83
+  "Drum (Clapping).brr"    $FF $E0 $A0 $02 $8D
+  "Drum (Hihat short).brr" $FF $F0 $A0 $03 $00
+  "Drum (Tom).brr"         $FF $E0 $A0 $03 $D5
+  "Drum (Cymbal).brr"      $FF $EE $A0 $02 $E3
+}

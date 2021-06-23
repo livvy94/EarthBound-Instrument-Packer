@@ -10,6 +10,13 @@ namespace EBInstPack
     {
         const string CONFIG_TEXTFILE_NAME = "config.txt";
 
+        const string PACK_NUMBER = "pack num";
+        const string BASE_INSTRUMENT = "base inst";
+        const string SAMPLE_OFFSET = "offset";
+        const string DEFAULT = "default";
+        const string OVERWRITE = "overwrite";
+        const string SEPARATOR = "$";
+
         internal static bool FolderNonexistant(string folderPath)
         {
             return !File.Exists(GetFullConfigFilepath(folderPath));
@@ -31,37 +38,50 @@ namespace EBInstPack
 
         internal static List<BRRFile> LoadBRRs(string folderPath)
         {
-            var filenames = Directory.GetFiles(GetFullPath(folderPath));
-            Array.Sort(filenames); //this will let the order of insertion be specified by renaming the files to "1 trumpet.brr", "2 strings.brr", etc.
+            var allFiles = Directory.GetFiles(GetFullPath(folderPath));
+            var brrFileList = LoadFilenames(folderPath); //Get just the filenames from config.txt
 
+            //Find matches based on the list, add them to the result
             var result = new List<BRRFile>();
-            foreach (string filename in filenames)
+            foreach (var nameToLookFor in brrFileList)
             {
-                var info = new FileInfo(filename);
-                if (info.Extension != ".brr")
-                    continue; //skip the text file, or anything else that might be in there
-
-                var fileContents = File.ReadAllBytes(info.FullName);
-
-                if (BRRFunctions.FileHasNoLoopHeader(fileContents))
+                foreach (string filename in allFiles)
                 {
-                    //rudimentary support for raw, non-AMK BRRs
-                    result.Add(new BRRFile
+                    bool alreadyInserted = false;
+
+                    var info = new FileInfo(filename);
+                    if (info.Extension != ".brr" || info.Name != nameToLookFor)
+                        continue; //skip everything that isn't a BRR file, and files that aren't the next one in the list
+
+                    foreach (var foo in result)
                     {
-                        data = fileContents.ToList(),
-                        loopPoint = 0,
-                        filename = info.Name,
-                    });
-                }
-                else
-                {
-                    //separate the loop point header and the actual BRR data, and add them to the list
-                    result.Add(new BRRFile
+                        if (foo.filename.Contains(nameToLookFor))
+                            alreadyInserted = true;
+                    }
+
+                    if (alreadyInserted) continue;
+
+                    var fileContents = File.ReadAllBytes(info.FullName);
+
+                    if (BRRFunctions.FileHasNoLoopHeader(fileContents.Length))
                     {
-                        data = BRRFunctions.IsolateBRRdata(fileContents),
-                        loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
-                        filename = info.Name,
-                    });
+                        result.Add(new BRRFile
+                        {
+                            data = fileContents.ToList(),
+                            loopPoint = 0, //rudimentary support for raw, non-AMK BRRs
+                            filename = info.Name,
+                        });
+                    }
+                    else
+                    {
+                        //separate the loop point header and the actual BRR data, and add them to the list
+                        result.Add(new BRRFile
+                        {
+                            data = BRRFunctions.IsolateBRRdata(fileContents),
+                            loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
+                            filename = info.Name,
+                        });
+                    }
                 }
             }
             return result;
@@ -78,24 +98,28 @@ namespace EBInstPack
             for (int i = 0; i < 3; i++)
             {
                 var line = lines[i].ToLower().Split(": ");
-                if (line[0].Contains("pack num"))
+                if (line[0].Contains(PACK_NUMBER))
                 {
-                    if (line[1].Contains("default"))
+                    if (line[1].Contains(DEFAULT))
                         throw new Exception("Please specify a pack number!"); //TODO: Try this and see if it works as expected
                     else
                         tempPackNum = HexHelpers.HexStringToByte(line[1]);
                 }
-                else if (line[0].Contains("base inst"))
+                else if (line[0].Contains(BASE_INSTRUMENT))
                 {
-                    if (line[1].Contains("default"))
+                    if (line[1].Contains(DEFAULT))
                         tempBaseInst = 0x1A;
+                    else if (line[1].Contains(OVERWRITE))
+                        tempBaseInst = 0x00;
                     else
                         tempBaseInst = HexHelpers.HexStringToByte(line[1]);
                 }
-                else if (line[0].Contains("brr") || line[0].Contains("sample"))
+                else if (line[0].Contains(SAMPLE_OFFSET))
                 {
-                    if (line[1].Contains("default"))
+                    if (line[1].Contains(DEFAULT))
                         tempBRRoffset = ARAM.samplesOffset_1A;
+                    else if (line[1].Contains(OVERWRITE))
+                        tempBRRoffset = ARAM.samplesOffset;
                     else
                         tempBRRoffset = HexHelpers.HexStringToUInt16(line[1]);
                 }
@@ -124,15 +148,20 @@ namespace EBInstPack
             //rip through the textfile
             var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
 
-            byte instIndex = ARAM.defaultFirstSampleIndex;
+            byte instIndex = ARAM.defaultFirstSampleIndex; //set instIndex to the default value before even checking
             var result = new List<Patch>();
             foreach (var line in lines)
             {
-                //set the base instrument if it's set to something other than "default"
-                if (line.ToLower().Contains("base instrument") && !line.Contains("default"))
+                var tempLine = line.ToLower();
+                if (tempLine.Contains(BASE_INSTRUMENT))
                 {
-                    var splitLine = line.Split(": ")[1];
-                    instIndex = HexHelpers.HexStringToByte(splitLine);
+                    if (tempLine.Contains(OVERWRITE)) //change instIndex if "default" isn't in the textfile after all
+                        instIndex = 0x00;
+                    else if (!tempLine.Contains(DEFAULT))
+                    {
+                        var splitLine = line.Split(": ")[1];
+                        instIndex = HexHelpers.HexStringToByte(splitLine);
+                    }
                 }
 
                 if (LineShouldBeSkipped(line)) continue;
@@ -160,14 +189,28 @@ namespace EBInstPack
             return result;
         }
 
+        internal static string[] LoadFilenames(string folderPath)
+        {
+            //rip through the textfile
+            var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
+            var result = new List<string>();
+            foreach (var line in lines)
+            {
+                if (!line.Contains('\"')) continue; //only process the lines with filenames in them
+                var temp = CleanTextFileLine(line);
+                result.Add(temp[0]); //add the filename
+            }
+            return result.ToArray();
+        }
+
         static readonly string[] skippableStrings = new string[]
         {
             "{",
             "}",
             "#",
-            "dump offset",
-            "pack num",
-            "base instrument",
+            SAMPLE_OFFSET,
+            PACK_NUMBER,
+            BASE_INSTRUMENT,
         };
 
         internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.ToLower().Contains);
@@ -175,12 +218,18 @@ namespace EBInstPack
         internal static List<string> CleanTextFileLine(string line)
         {
             var result = new List<string>();
-            var splitLine = line.Split(' ');
-            foreach (var linePiece in splitLine)
+
+            var splitLine = line.Split('"'); //seperate the "filename.brr" from the "   $XX $XX $XX $XX $XX"
+            var filename = splitLine[1];
+            var numbers = splitLine[2].Split(SEPARATOR);
+
+            result.Add(filename);
+
+            foreach (var num in numbers)
             {
-                if (string.IsNullOrEmpty(linePiece)) continue;
-                var cleanPiece = linePiece.Trim(new char[] { ' ', '"', '$' }); //Trim the " and $ chars from each line
-                result.Add(cleanPiece);
+                var temp = num.Trim();
+                if (string.IsNullOrEmpty(temp)) continue; //skip index 0, which will have leftover spaces in it
+                result.Add(temp);
             }
 
             return result;

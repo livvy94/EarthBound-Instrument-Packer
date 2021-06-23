@@ -15,16 +15,16 @@ namespace EBInstPack
             Console.WriteLine("   Or just drag the folder onto the EXE!");
             Console.WriteLine();
 
-            //TODO: Suggestions from Catador
-            //I feel like if you're going for readability, you could replace some of those
-            //"[hex]" things with commands like dir_entry(start, loop),
-            //patch(srcn, adsr1, adsr2, gain, pitchmult, pitchsubmult),
-            //along with replacing the "[XX YY]" with short 0xYYXX
+            //TODO:
+            //See if overwriting pack 05 works correctly
+            //BRRs shouldn't need to be in alphabetical order
+            //Program Icon
+            //Replace the "[XX YY]" with short 0xYYXX if it looks cleaner
 
             //load the folder contents
             if (DEBUG)
             {
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\WilliamAreaTheme";
+                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\famicomDetectiveClub";
             }
             else
             {
@@ -50,23 +50,15 @@ namespace EBInstPack
 
             //Generate all the hex
             var sampleDirectory = BinaryBlob.GenerateSampleDirectory(config, samples);
-            //var patches = BinaryBlob.GeneratePatches(config); //this is unused! TODO: Delete this and GeneratePatches() if it's unused now!
             var brrDump = BinaryBlob.GenerateBRRDump(samples);
 
-            //make sure we haven't gone over the ARAM limit
             var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);
-            if (tooManyBRRs)
-            {
-                Console.WriteLine("Please try again...");
-                Console.ReadLine();
-                return;
-            }
-
-            config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config);
+            if (tooManyBRRs) return;
+            config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
 
             var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
 
-            FileIO.SaveTextfile(ccsFile, folderPath, config.outputFilename); //save the CCScript file
+            FileIO.SaveTextfile(ccsFile, folderPath, config.outputFilename);
 
             Console.WriteLine("Highest possible delay value for this pack: " + config.maxDelay.ToString("X2"));
             Console.WriteLine();
