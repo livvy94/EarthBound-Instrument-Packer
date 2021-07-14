@@ -1,0 +1,11 @@
+Pack number: 28
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+  "Major.brr"       $8F $E0 $00 $03 $C0
+  "Minor.brr"       $8F $E0 $00 $03 $C0
+  "Major.brr"       $8F $F0 $00 $03 $C0
+  "Minor.brr"       $8F $F0 $00 $03 $C0
+}

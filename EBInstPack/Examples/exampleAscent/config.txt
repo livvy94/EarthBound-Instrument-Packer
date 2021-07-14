@@ -4,9 +4,10 @@ BRR sample dump offset: default
 
 #instruments
 {
-  "01Guitar.brr"    $9F $AD $7F  $03 $00
-  "02Pad.brr"       $F4 $E9 $00  $03 $D4
-  "03Sine.brr"      $8F $EF $7F  $02 $00
-  "04Organ.brr"     $8F $EA $7F  $05 $BA
-  "05Bass.brr"      $8F $EA $7F  $08 $80
+  "Guitar.brr"    $9F $AD $7F  $03 $00
+  "Pad.brr"       $F4 $E9 $00  $03 $D4
+  "Sine.brr"      $8F $EF $7F  $02 $00
+  "Organ.brr"     $8F $EA $7F  $05 $BA
+  "Bass.brr"      $8F $EA $7F  $08 $80
 }
+

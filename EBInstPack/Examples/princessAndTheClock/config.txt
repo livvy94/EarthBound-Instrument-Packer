@@ -4,11 +4,14 @@ BRR sample dump offset: default
 
 #instruments
 {
-  "1APianoFixed.brr"         $FF $E0 $B8  $04 $E0
-  "AcousticTom.brr"          $FF $E0 $B8  $04 $00
-  "AmpGuitarClipped.brr"     $FF $E0 $B8  $07 $A0
-  "PomplamooseBassDrum.brr"  $FF $E0 $B8  $04 $00
-  "PomplamooseSnareDrum.brr" $FF $E0 $B8  $04 $00
-  "SonicBass.brr"            $AF $69 $B8  $03 $C0
-  "SonicBass.brr"            $AF $32 $B8  $03 $C0
+  "1APianoFixed.brr"         $AF $E9 $00  $04 $E0
+  "1APianoFixed.brr"         $89 $20 $00  $04 $E0
+  "PomplamooseBassDrum.brr"  $FF $E0 $00  $04 $00
+  "PomplamooseSnareDrum.brr" $FF $E0 $00  $04 $00
+  "PortaFM Bass.brr"         $FF $E0 $00  $03 $B6
+  "PortaFM Bass.brr"         $8F $6E $00  $03 $B6
+  "String Ensemble.brr"      $FA $E4 $B8  $04 $28
+  "1APianoFixed.brr"         $A4 $E0 $00  $04 $00
+  "1APianoFixed.brr"         $A4 $E0 $00  $04 $00
+  "1APianoFixed.brr"         $AF $ED $00  $04 $00
 }
