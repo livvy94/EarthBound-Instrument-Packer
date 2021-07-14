@@ -171,6 +171,21 @@ Make sure the SPC Packs tab stuff and the BGM list tab stuff is correct
 
 oh jeez
 
+## Making BRRs
+- Decide what you want to record, and record it in your favorite sound recorder
+- Save it as a WAV file
+- Go into OpenMPT and load the WAV file as a sample
+- Make sure it's tuned to C if it's pitched (not percussive)
+- Downsample it to 32000 hz or 16000 hz, whatever the lowest is that you can get away with without sounding like butt.
+- Set loop points
+- Save it as a new WAV file
+- Convert this WAV file to a BRR file
+  - Open the [C700 VST](http://picopicose.com/software.html) and drop the WAV file into it
+  - Make sure it doesn't sound glitchy
+  - Click the Save Sample button
+  - Alternately, you can use [BRRTools](https://www.smwcentral.net/?p=section&a=details&id=17670), but I've never used it before and you have to put the loop point in the command line arguments
+  
+
 ## Custom Instruments
 [Pinci's tutorial](https://www.smwcentral.net/?p=viewthread&t=101960)
 
