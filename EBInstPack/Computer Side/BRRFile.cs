@@ -5,9 +5,9 @@ namespace EBInstPack
 {
     class BRRFile
     {
-        public ushort loopPoint = 0;
-        public List<byte> data = new List<byte>();
-        public string filename = string.Empty;
+        public ushort loopPoint;
+        public List<byte> data;
+        public string filename;
     }
 
     class BRRFunctions

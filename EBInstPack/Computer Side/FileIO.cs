@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 using System.IO;
 using System.Linq;
 
@@ -19,7 +20,14 @@ namespace EBInstPack
 
         internal static bool FolderNonexistant(string folderPath)
         {
-            return !File.Exists(GetFullConfigFilepath(folderPath));
+            if (!File.Exists(GetFullConfigFilepath(folderPath)))
+            {
+                Console.WriteLine("Folder does not exist!");
+                Console.WriteLine("Make sure you have a folder full of BRRs and a config file there.");
+                Console.ReadLine();
+                return true;
+            }
+            else return false;
         }
 
         internal static string GetFullConfigFilepath(string folderPath)
@@ -84,6 +92,25 @@ namespace EBInstPack
                     }
                 }
             }
+            return result;
+        }
+
+        internal static List<EBMFile> LoadEBMs(string folderPath)
+        {
+            var result = new List<EBMFile>();
+
+            var allFiles = Directory.GetFiles(GetFullPath(folderPath));
+            foreach (string filename in allFiles)
+            {
+                var extension = Path.GetExtension(filename);
+                var name = Path.GetFileNameWithoutExtension(filename);
+
+                if (extension != ".ebm")
+                    continue;
+
+                result.Add(new EBMFile(name, File.ReadAllBytes(filename)));
+            }
+
             return result;
         }
 
@@ -235,11 +262,30 @@ namespace EBInstPack
             return result;
         }
 
-        public static void SaveTextfile(string result, string outputPath, string filename)
+        public static void SaveCCScriptFile(string result, string outputPath, string filename)
         {
             var outfile = Path.Combine(outputPath, $"{filename}.ccs");
             using var writer = new StreamWriter(outfile);
             writer.Write(result);
+            Console.WriteLine($"Wrote {filename}.ccs!");
+        }
+
+        public static void SaveSPCfile(byte[] result, string outputPath, string filename)
+        {
+            var outfile = Path.Combine(outputPath, $"{filename}.spc");
+            using var writer = new BinaryWriter(File.Open(outfile, FileMode.Create));
+            writer.Write(result);
+            Console.WriteLine($"Wrote {filename}.spc!");
+        }
+
+        public static byte[] GetDummySPC()
+        {
+            //https://stackoverflow.com/questions/10412401/how-to-read-an-embedded-resource-as-array-of-bytes-without-writing-it-to-disk
+            var asm = Assembly.GetExecutingAssembly();
+            using Stream resFilestream = asm.GetManifestResourceStream("EBInstPack.Resources.N-SPC Test.spc");
+            byte[] result = new byte[resFilestream.Length];
+            resFilestream.Read(result, 0, result.Length);
+            return result;
         }
     }
 }

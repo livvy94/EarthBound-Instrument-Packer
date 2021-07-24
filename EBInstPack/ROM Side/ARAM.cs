@@ -46,7 +46,8 @@ namespace EBInstPack
 
         public static bool CheckLimit(byte[] data, int maxPossibleValue)
         {
-            Console.WriteLine(data.Length.ToString() + " total bytes of BRR data (" + maxPossibleValue.ToString() + " bytes available)");
+            var bytesLeft = maxPossibleValue - data.Length;
+            Console.WriteLine($"{data.Length} total bytes of BRR data ({bytesLeft} bytes left)");
             if (CalculateOverwrittenBytes(data, maxPossibleValue) > 0)
                 return false;
             else

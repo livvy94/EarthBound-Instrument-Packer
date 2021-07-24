@@ -10,8 +10,8 @@ Strings.brr
 asdfjkl.brr
 ```
 
-Drop your folder on the EXE (or give it the right path), and it spits out a CCScript file.
+Drop your folder on the EXE (or paste in the path), and it spits out a CCScript file.
 
 Compile this into a CoilSnake project, and the ROM will have the custom instruments automatically inserted and repointed for you!
 
-Also planned - insertion of EBMusEd sequence data to overwrite song packs!
+In addition to this, if there are any .ebm files present in the folder, it will also generate [SPC files](http://www.vgmpf.com/Wiki/index.php?title=SPC) for easy preview and playback in either [SPCPlay](https://github.com/dgrfactory/spcplay/releases) or a flashcart.
