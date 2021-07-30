@@ -1,0 +1,14 @@
+Pack number: 2A
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+  "Nylon Guitar 2.brr"    $FF $E0 $B8 $04 $00
+  "Nylon Guitar 2.brr"    $FF $E0 $B8 $04 $00
+  "Nylon Guitar 2.brr"    $FF $F2 $B8 $04 $00
+  "Rock Organ.brr"        $FF $E0 $B8 $02 $E0
+  "Pizzicato Strings.brr" $FF $F6 $B8 $03 $00
+  "Xylophone.brr"         $8F $E0 $B8 $06 $20
+}
+
