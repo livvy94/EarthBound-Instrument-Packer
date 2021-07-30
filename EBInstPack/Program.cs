@@ -53,7 +53,7 @@ namespace EBInstPack
             if (tooManyBRRs) return;
 
             config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
-            Console.WriteLine("Highest possible delay value for this pack: " + config.maxDelay.ToString("X2") + "\n");
+            Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}\n");
 
             var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
             FileIO.SaveCCScriptFile(ccsFile, folderPath, config.outputFilename);
@@ -68,6 +68,14 @@ namespace EBInstPack
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
+        }
+
+        public static void GracefulCrash(string message)
+        {
+            Console.WriteLine("\n**  ERROR  **");
+            Console.WriteLine(message);
+            Console.ReadKey();
+            Environment.Exit(-1);
         }
     }
 }

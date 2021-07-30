@@ -173,13 +173,13 @@ namespace EBInstPack
 
             //Check that everything's there
             if (result.offsetForSampleDir == 0xFFFF)
-                throw new Exception("Couldn't find a value for Sample Directory Offset in config.txt!");
+                Program.GracefulCrash("Couldn't find a value for Sample Directory Offset in config.txt!");
             else if (result.offsetForBRRdump == 0xFFFF)
-                throw new Exception("Couldn't find a value for BRR Sample Dump Offset in config.txt!");
+                Program.GracefulCrash("Couldn't find a value for BRR Sample Dump Offset in config.txt!");
             else if (result.offsetForInstrumentConfig == 0xFFFF)
-                throw new Exception("Couldn't find a value for Instrument Config Table Offset in config.txt!");
+                Program.GracefulCrash("Couldn't find a value for Instrument Config Table Offset in config.txt!");
             else if (result.packNumber == 0xFF)
-                throw new Exception("Couldn't find a value for Pack Number in config.txt!");
+                Program.GracefulCrash("Couldn't find a value for Pack Number in config.txt!");
 
             return result;
         }
@@ -206,11 +206,8 @@ namespace EBInstPack
                 }
 
                 if (LineShouldBeSkipped(line)) continue;
-                var lineContents = CleanTextFileLine(line);
 
-                //TODO: Make it so you can have spaces in the BRR filename...
-                //It splits incorrectly if stuff like "Piano (High).brr" is in the textfile
-                //Maybe split on quote marks, then do this kind of splitting on the rest of it?? Ugh
+                var lineContents = CleanTextFileLine(line);
 
                 var temp = new Patch
                 {
@@ -256,9 +253,22 @@ namespace EBInstPack
 
         internal static bool LineShouldBeSkipped(string line) => string.IsNullOrEmpty(line) || skippableStrings.Any(line.ToLower().Contains);
 
+        private static void CheckFormatting(string line)
+        {
+            int quoteCount = line.Count(f => f == '"');
+            int dollarSignCount = line.Count(f => f == '$');
+
+            if (quoteCount < 2 || dollarSignCount < 5)
+            {
+                Program.GracefulCrash($"This line isn't formatted correctly! Please check your config.txt.\n{line}");
+            }
+        }
+
         internal static List<string> CleanTextFileLine(string line)
         {
             var result = new List<string>();
+
+            CheckFormatting(line);
 
             var splitLine = line.Split('"'); //seperate the "filename.brr" from the "   $XX $XX $XX $XX $XX"
             var filename = splitLine[1];
@@ -266,11 +276,9 @@ namespace EBInstPack
 
             result.Add(filename);
 
-            foreach (var num in numbers)
+            for (int i = 1; i < numbers.Length; i++) //skip index 0, which will have leftover spaces in it
             {
-                var temp = num.Trim();
-                if (string.IsNullOrEmpty(temp)) continue; //skip index 0, which will have leftover spaces in it
-                result.Add(temp);
+                result.Add(numbers[i].Trim());
             }
 
             return result;

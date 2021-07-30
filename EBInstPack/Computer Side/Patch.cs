@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EBInstPack
+﻿namespace EBInstPack
 {
     class Patch
     {
