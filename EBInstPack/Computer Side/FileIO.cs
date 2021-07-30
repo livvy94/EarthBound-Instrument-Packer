@@ -48,6 +48,7 @@ namespace EBInstPack
         {
             var allFiles = Directory.GetFiles(GetFullPath(folderPath));
             var brrFileList = LoadFilenames(folderPath); //Get just the filenames from config.txt
+            var dupeIndex = 0;
 
             //Find matches based on the list, add them to the result
             var result = new List<BRRFile>();
@@ -61,8 +62,10 @@ namespace EBInstPack
                     {
                         dupeStartOffset = HexHelpers.HexStringToUInt16(offsets[1]),
                         loopPoint = HexHelpers.HexStringToUInt16(offsets[2]),
-                        filename = "(Duplicate)",
+                        data = new byte[0], //empty so the running offset count doesn't get incremented
+                        filename = $"Duplicate #{dupeIndex} {nameToLookFor}", //it breaks if there's identical filenames here
                     });
+                    dupeIndex++;
                 }
                 else
                 {
@@ -142,7 +145,7 @@ namespace EBInstPack
                 if (line[0].Contains(PACK_NUMBER))
                 {
                     if (line[1].Contains(DEFAULT))
-                        throw new Exception("Please specify a pack number!"); //TODO: Try this and see if it works as expected
+                        Program.GracefulCrash("Please specify a pack number in your config.txt!");
                     else
                         tempPackNum = HexHelpers.HexStringToByte(line[1]);
                 }
@@ -190,6 +193,7 @@ namespace EBInstPack
             var lines = File.ReadLines(GetFullConfigFilepath(folderPath));
 
             byte instIndex = ARAM.defaultFirstSampleIndex; //set instIndex to the default value before even checking
+            var dupeIndex = 0;
             var result = new List<Patch>();
             foreach (var line in lines)
             {
@@ -208,6 +212,13 @@ namespace EBInstPack
                 if (LineShouldBeSkipped(line)) continue;
 
                 var lineContents = CleanTextFileLine(line);
+
+                if (lineContents[0].Contains("0x"))
+                {
+                    //if the Patch filename isn't the same as the BRR filename, glitches happen
+                    lineContents[0] = $"Duplicate #{dupeIndex} {lineContents[0]}";
+                    dupeIndex++;
+                }
 
                 var temp = new Patch
                 {

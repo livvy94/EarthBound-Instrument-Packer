@@ -65,14 +65,25 @@ namespace EBInstPack
                     }
                     else
                     {
-                        // Create and add a new entry.
+                        ushort tempStartOffset = 0; //Duplicates need to use the explicitly-specified offsets
+                        ushort tempLoopOffset = 0;  //instead of the running count that BRR files use
+                        if (currentSample.filename.Contains("Duplicate"))
+                        {
+                            tempStartOffset = currentSample.dupeStartOffset;
+                            tempLoopOffset = currentSample.loopPoint;
+                        }
+                        else
+                        {
+                            tempStartOffset = currentAramOffset;
+                            tempLoopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint));
+                        }
+
                         var sampleDirectory = new SampleDirectory
                         {
-                            aramOffset = currentAramOffset,
-                            loopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint)),
+                            aramOffset = tempStartOffset,
+                            loopOffset = tempLoopOffset,
                             Filename = currentSample.filename,
                         };
-
                         sampleDirectoriesByFilename[patch.Filename] = sampleDirectory;
                         resultSampleDirectory.Add(sampleDirectory);
 

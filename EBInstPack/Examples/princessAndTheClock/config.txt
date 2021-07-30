@@ -11,7 +11,7 @@ BRR sample dump offset: default
   "PortaFM Bass.brr"         $FF $E0 $00  $03 $B6
   "PortaFM Bass.brr"         $8F $6E $00  $03 $B6
   "String Ensemble.brr"      $FA $E4 $B8  $04 $28
-  "1APianoFixed.brr"         $A4 $E0 $00  $04 $00
-  "1APianoFixed.brr"         $A4 $E0 $00  $04 $00
-  "1APianoFixed.brr"         $AF $ED $00  $04 $00
+  "0x7D6E 0x7DA4"            $A4 $E0 $00  $04 $00
+  "0x7CCC 0x7D0B"            $A4 $E0 $00  $04 $00
+  "0x7CCC 0x7D0B"            $AF $ED $00  $04 $00
 }

@@ -72,9 +72,9 @@ namespace EBInstPack
 
             foreach (var sample in samples)
             {
-                if (sample.filename == "(Duplicate)")
+                if (sample.filename.Contains("Duplicate"))
                 {
-                    Console.WriteLine("(Duplicate Entry)".PadRight(40, '.') + "0 bytes".PadLeft(4, '.'));
+                    Console.WriteLine("(Manual ARAM Reference)".PadRight(40, '.') + "0 bytes".PadLeft(4, '.'));
                     continue;
                 }
 
