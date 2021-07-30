@@ -53,42 +53,56 @@ namespace EBInstPack
             var result = new List<BRRFile>();
             foreach (var nameToLookFor in brrFileList)
             {
-                foreach (string filename in allFiles)
+                if (nameToLookFor.Contains("0x"))
                 {
-                    bool alreadyInserted = false;
-
-                    var info = new FileInfo(filename);
-                    if (info.Extension != ".brr" || info.Name != nameToLookFor)
-                        continue; //skip everything that isn't a BRR file, and files that aren't the next one in the list
-
-                    foreach (var foo in result)
+                    //this line is a duplicate, not a reference to a file - it contains manual ARAM offsets
+                    var offsets = nameToLookFor.Split("0x");
+                    result.Add(new BRRFile
                     {
-                        if (foo.filename.Contains(nameToLookFor))
-                            alreadyInserted = true;
-                    }
-
-                    if (alreadyInserted) continue;
-
-                    var fileContents = File.ReadAllBytes(info.FullName);
-
-                    if (BRRFunctions.FileHasNoLoopHeader(fileContents.Length))
+                        dupeStartOffset = HexHelpers.HexStringToUInt16(offsets[1]),
+                        loopPoint = HexHelpers.HexStringToUInt16(offsets[2]),
+                        filename = "(Duplicate)",
+                    });
+                }
+                else
+                {
+                    foreach (string filename in allFiles)
                     {
-                        result.Add(new BRRFile
+                        bool alreadyInserted = false;
+
+                        var info = new FileInfo(filename);
+                        if (info.Extension != ".brr" || info.Name != nameToLookFor)
+                            continue; //skip everything that isn't a BRR file, and files that aren't the next one in the list
+
+                        foreach (var foo in result)
                         {
-                            data = fileContents.ToList(),
-                            loopPoint = 0, //rudimentary support for raw, non-AMK BRRs
-                            filename = info.Name,
-                        });
-                    }
-                    else
-                    {
-                        //separate the loop point header and the actual BRR data, and add them to the list
-                        result.Add(new BRRFile
+                            if (foo.filename.Contains(nameToLookFor))
+                                alreadyInserted = true;
+                        }
+
+                        if (alreadyInserted) continue;
+
+                        var fileContents = File.ReadAllBytes(info.FullName);
+
+                        if (BRRFunctions.FileHasNoLoopHeader(fileContents.Length))
                         {
-                            data = BRRFunctions.IsolateBRRdata(fileContents),
-                            loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
-                            filename = info.Name,
-                        });
+                            result.Add(new BRRFile
+                            {
+                                data = fileContents.ToList(),
+                                loopPoint = 0, //rudimentary support for raw, non-AMK BRRs
+                                filename = info.Name,
+                            });
+                        }
+                        else
+                        {
+                            //separate the loop point header and the actual BRR data, and add them to the list
+                            result.Add(new BRRFile
+                            {
+                                data = BRRFunctions.IsolateBRRdata(fileContents),
+                                loopPoint = BRRFunctions.DecodeLoopPoint(fileContents),
+                                filename = info.Name,
+                            });
+                        }
                     }
                 }
             }

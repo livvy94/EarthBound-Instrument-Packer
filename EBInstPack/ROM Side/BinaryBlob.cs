@@ -22,7 +22,10 @@ namespace EBInstPack
                 {
                     // We haven't added an entry with this file before, so find the sample and add the entry.
                     if (!samplesByFilename.TryGetValue(patch.Filename, out BRRFile currentSample))
-                        Console.WriteLine("Sample file \"" + patch.Filename + "\" does not exist!");
+                    {
+                        if (!patch.Filename.Contains("0x")) //don't display this message for duplicates
+                            Console.WriteLine("Sample file \"" + patch.Filename + "\" does not exist!");
+                    }
                     else
                     {
                         // Create and add a new entry.
@@ -56,6 +59,12 @@ namespace EBInstPack
 
             foreach (var sample in samples)
             {
+                if (sample.filename == "(Duplicate)")
+                {
+                    Console.WriteLine("(Duplicate Entry)".PadRight(40, '.') + "0 bytes".PadLeft(4, '.'));
+                    continue;
+                }
+
                 Console.WriteLine($"Loading {sample.filename}".PadRight(40, '.') + sample.data.Count.ToString().PadLeft(4, '.') + " bytes");
                 result.AddRange(sample.data);
             }

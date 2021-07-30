@@ -8,6 +8,8 @@ namespace EBInstPack
         public ushort loopPoint;
         public List<byte> data;
         public string filename;
+
+        public ushort dupeStartOffset; //for duplicates - patches in a secondary pack that point to a primary pack
     }
 
     class BRRFunctions
