@@ -49,7 +49,8 @@ namespace EBInstPack
             }
             catch
             {
-                throw new Exception("ERROR! Something went wrong while trying to convert this to a byte: " + input);
+                Program.GracefulCrash("Something went wrong while trying to convert this to a byte: " + input);
+                return 0;
             }
         }
 

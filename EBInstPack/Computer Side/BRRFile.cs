@@ -6,7 +6,7 @@ namespace EBInstPack
     class BRRFile
     {
         public ushort loopPoint;
-        public List<byte> data;
+        public byte[] data;
         public string filename;
 
         public ushort dupeStartOffset; //for duplicates - patches in a secondary pack that point to a primary pack
@@ -53,20 +53,35 @@ namespace EBInstPack
             return new byte[] { fileData[0], fileData[1] };
         }
 
-        public static List<byte> IsolateBRRdata(byte[] fileData)
+        public static byte[] IsolateBRRdata(byte[] fileData)
         {
-            var result = new List<byte>();
-
-            for (int i = 2; i < fileData.Length; i++) //starting at 2 here to skip the loop point & return the rest of it
-            {
-                result.Add(fileData[i]); //Something tells me this could be done in a cleaner way...
-            }
+            var newArrayLength = fileData.Length - 2;
+            var result = new byte[newArrayLength];
+            Array.Copy(fileData, 2, result, 0, newArrayLength);
             return result;
         }
 
         public static bool FileHasNoLoopHeader(int fileLength)
         {
             return fileLength % 9 == 0; //BRR blocks are 9 bytes long
+        }
+
+        public static byte[] Combine(List<BRRFile> samples)
+        {
+            var result = new List<byte>();
+
+            foreach (var sample in samples)
+            {
+                if (sample.filename == "(Duplicate)")
+                {
+                    Console.WriteLine("(Duplicate Entry)".PadRight(40, '.') + "0 bytes".PadLeft(4, '.'));
+                    continue;
+                }
+
+                Console.WriteLine($"Loading {sample.filename}".PadRight(40, '.') + sample.data.Length.ToString().PadLeft(4, '.') + " bytes");
+                result.AddRange(sample.data);
+            }
+            return result.ToArray();
         }
     }
 }

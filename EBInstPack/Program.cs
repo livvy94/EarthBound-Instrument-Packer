@@ -12,7 +12,6 @@ namespace EBInstPack
             Console.Title = "EarthBound Instrument Packer";
 
             //TODO:
-            //Some way to specify exact ARAM locations right in config.txt (to make duplicates that point to Pack 05 stuff)
             //Comission an icon for the program
             //Replace the "[XX YY]" with "short 0xYYXX" if it looks cleaner
 
@@ -45,8 +44,8 @@ namespace EBInstPack
             var samples = FileIO.LoadBRRs(folderPath);
 
             //Generate all the hex
-            var sampleDirectory = BinaryBlob.GenerateSampleDirectory(config, samples);
-            var brrDump = BinaryBlob.GenerateBRRDump(samples);
+            var sampleDirectory = Config.GenerateSampleDirectory(config, samples);
+            var brrDump = BRRFunctions.Combine(samples);
 
             //Validation
             var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);

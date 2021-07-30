@@ -88,7 +88,7 @@ namespace EBInstPack
                         {
                             result.Add(new BRRFile
                             {
-                                data = fileContents.ToList(),
+                                data = fileContents,
                                 loopPoint = 0, //rudimentary support for raw, non-AMK BRRs
                                 filename = info.Name,
                             });

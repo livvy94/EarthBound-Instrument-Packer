@@ -20,14 +20,10 @@ namespace EBInstPack
 
         private byte[] IsolateSequenceData(byte[] fileData)
         {
-            var result = new List<byte>();
-
-            for (var i = 4; i < fileData.Length; i++) //starting at 4 to skip the header
-            {
-                result.Add(fileData[i]); //Something tells me this could be done in a cleaner way...
-            }
-
-            return result.ToArray();
+            var newArrayLength = fileData.Length - 4;
+            var result = new byte[newArrayLength];
+            Array.Copy(fileData, 4, result, 0, newArrayLength);
+            return result;
         }
     }
 }

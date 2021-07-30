@@ -94,16 +94,11 @@ namespace EBInstPack
             return result.ToString(); //data in nice even rows, surrounded by quote marks
         }
 
-        private static string GetSizeAndOffsetComments(int dataLength, ushort aramOffset)
+        private static string GetSizeAndOffsetComments(int size, ushort offset)
         {
-            var size = HexHelpers.UInt16toByteArray_LittleEndian((ushort)dataLength);
-            var offset = HexHelpers.UInt16toByteArray_LittleEndian(aramOffset);
-
             var builder = new StringBuilder();
-            builder.Append(BytesToCCScript(size, false));
-            builder.Append($" //Copy the next {dataLength:X4} bytes" + NEWLINE);
-            builder.Append(BytesToCCScript(offset, false));
-            builder.Append($" //To ARAM offset {aramOffset:X4}" + NEWLINE);
+            builder.Append($"short {size} //Copy the next {size} bytes" + NEWLINE);
+            builder.Append($"short 0x{offset:X4} //To ARAM offset {offset:X4}" + NEWLINE);
             return builder.ToString();
         }
 
