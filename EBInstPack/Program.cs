@@ -13,7 +13,6 @@ namespace EBInstPack
 
             //TODO:
             //Comission an icon for the program
-            //Replace the "[XX YY]" with "short 0xYYXX" if it looks cleaner
 
             //load the folder contents
             if (DEBUG)
@@ -71,7 +70,7 @@ namespace EBInstPack
 
         public static void GracefulCrash(string message)
         {
-            Console.WriteLine("\n**  ERROR  **");
+            Console.WriteLine("**  ERROR  **");
             Console.WriteLine(message);
             Console.ReadKey();
             Environment.Exit(-1);

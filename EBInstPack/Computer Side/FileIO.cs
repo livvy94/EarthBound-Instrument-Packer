@@ -141,7 +141,7 @@ namespace EBInstPack
             var lines = File.ReadLines(GetFullConfigFilepath(folderPath)).ToList();
             for (int i = 0; i < 3; i++)
             {
-                var line = lines[i].ToLower().Split(": ");
+                var line = lines[i].ToLower().Split(":");
                 if (line[0].Contains(PACK_NUMBER))
                 {
                     if (line[1].Contains(DEFAULT))
