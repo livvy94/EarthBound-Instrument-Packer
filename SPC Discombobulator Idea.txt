@@ -1,0 +1,17 @@
+Opens a folder
+Gathers all files with a .spc extension into a list
+
+Dump metadata, compile metadata, or rip BRRs? (d/c/r)
+
+Dump tags:
+	Serializes header info to YML and saves it (Filepath, Song name, Game name, etc)
+Compile tags:
+	Looks for the YML file
+	Goes to each filepath and patches in the data
+
+Rip BRRs
+	(Checks if the SPC file is compatible, stops if it's a driver that doesn't have the Sample Directory in the normal place.)
+	Goes to the Sample Directory
+	Creates BRR file with the right loop point
+	Creates a folder with the SPC file's name and saves everything
+	Goes to where the metadata is and turns it into a config.txt file
