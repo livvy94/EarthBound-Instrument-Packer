@@ -1,0 +1,34 @@
+Pack number: 05
+Base instrument: 00
+BRR sample dump offset: 7000
+
+#instruments
+{
+  "Fretless Bass.brr"             $8F $E6 $B8 $0F $F0
+  "Trumpet.brr"                   $FF $E0 $B8 $03 $00
+  "Trumpet.brr"                   $8F $EB $B8 $03 $00
+  "French Horn.brr"               $FF $E0 $B8 $03 $00
+  "French Horn.brr"               $8F $E0 $B8 $03 $00
+  "Tuba.brr"                      $FF $E0 $B8 $05 $00
+  "Bell.brr"                      $FF $E0 $B8 $05 $F0
+  "Bell.brr"                      $8F $F3 $B8 $05 $F0
+  "Sine Wave.brr"                 $8F $E0 $B8 $04 $00
+  "Sawtooth-like synth.brr"       $8F $E0 $B8 $02 $00
+  "Electric Piano.brr"            $8F $F1 $B8 $04 $00
+  "Bowowo Thing.brr"              $8F $E0 $B8 $03 $10
+  "Game Arcade.brr"               $8F $E0 $B8 $02 $F0
+  "Square Wave.brr"               $8F $E0 $B8 $04 $00
+  "Sawtooth Wave.brr"             $8F $E0 $B8 $04 $00
+  "Drawbar Organ.brr"             $8F $E0 $B8 $03 $00
+  "Bird.brr"                      $FF $E0 $B8 $03 $D0
+  "Telephone.brr"                 $FF $E0 $B8 $01 $30
+  "Sine-like Synth.brr"           $FF $E0 $B8 $01 $00
+  "Cursor.brr"                    $FF $E0 $B8 $07 $A0
+  "Closed Hi Hat.brr"             $8F $E0 $B8 $07 $A0
+  "Kick.brr"                      $8F $E0 $B8 $07 $A0
+  "Electric Snare.brr"            $8F $E0 $B8 $07 $A0
+  "Noise 2.brr"                   $8F $EB $B8 $10 $F0
+  "Noise.brr"                     $8F $E0 $B8 $00 $E0
+  "Noise 3.brr"                   $8F $EB $B8 $07 $F0
+}
+
