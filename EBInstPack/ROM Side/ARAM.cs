@@ -88,12 +88,23 @@ namespace EBInstPack
 
             while (currentStartingOffset < sampleDumpEnd)
             {
+                if (currentDelayValue == 0)   //This fixes an edge case where ARAM is VERY close to being overfull,
+                    return currentDelayValue; //and currentDelayValue ends up being 0x00 minus 1, which returns 0xFF
+
                 //keep going until the data would succesfully fit with no issues
                 currentDelayValue--;
-                currentStartingOffset += 0x0800;
+                currentStartingOffset += 0x0800; //the lower the delay value gets, the greater in ARAM the echo start offset becomes
             }
 
             return currentDelayValue;
+
+            //High echo value     Low echo value
+            //.................   .................
+            //.................   .................
+            //.................   .................
+            //eeeeeeeeeeeeeeeee   .................
+            //eeeeeeeeeeeeeeeee   .................
+            //eeeeeeeeeeeeeeeee   eeeeeeeeeeeeeeeee  <-- start of echo in ARAM
         }
     }
 }
