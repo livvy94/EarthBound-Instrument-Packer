@@ -197,7 +197,13 @@ namespace EBInstPack
             var result = new List<Patch>();
             foreach (var line in lines)
             {
-                var tempLine = line.ToLower();
+                var tempLine = line;
+
+                if (tempLine.Contains(';'))
+                {
+                    tempLine = tempLine.Split(';')[0].Trim(); //get rid of comments if there are any
+                }
+
                 if (tempLine.Contains(BASE_INSTRUMENT))
                 {
                     if (tempLine.Contains(OVERWRITE)) //change instIndex if "default" isn't in the textfile after all
@@ -211,7 +217,7 @@ namespace EBInstPack
 
                 if (LineShouldBeSkipped(line)) continue;
 
-                var lineContents = CleanTextFileLine(line);
+                var lineContents = CleanTextFileLine(tempLine);
 
                 if (lineContents[0].Contains("0x"))
                 {
