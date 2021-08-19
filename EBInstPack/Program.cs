@@ -4,15 +4,19 @@ namespace EBInstPack
 {
     class Program
     {
+        //TODO:
+        //Edge-case bugs that people find
+        //Comission an icon for the program
+        //Make it so it puts the BRRs in the CCScript file seperately and puts a comment with the filename
+        //Recreate vanilla packs in the Examples folder to make them easier for people to modify
+        //Finish songs instead of messing with this!!!
+
         static void Main(string[] args)
         {
             const bool DEBUG = false;
             string folderPath;
 
             Console.Title = "EarthBound Instrument Packer";
-
-            //TODO:
-            //Comission an icon for the program
 
             //load the folder contents
             if (DEBUG)
