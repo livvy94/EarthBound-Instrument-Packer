@@ -1,0 +1,16 @@
+Pack number: 02
+Base instrument: 00
+BRR sample dump offset: 7000
+
+#samples
+{
+ "Fretless Bass.brr"    $8F $E6 $7F $0F $F0
+ "Sawtooth Wave.brr"    $FF $E0 $B8 $04 $00
+ "Sawtooth Wave.brr"    $FF $E0 $B8 $04 $00
+ "Square Wave.brr"      $8F $E0 $B8 $04 $00
+ "Bell.brr"             $8F $F3 $B8 $05 $F0
+ "Bongo.brr"            $FF $E0 $B8 $07 $A0
+ "Closed Hi Hat.brr"    $8F $E0 $B8 $07 $A0
+ "Brush Snare.brr"      $8F $E0 $B8 $07 $A0
+ "Sine Wave.brr"        $8F $E0 $B8 $04 $00
+}
