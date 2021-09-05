@@ -113,7 +113,6 @@ namespace EBInstPack
             var result = new List<byte>();
             foreach (var patch in patches)
             {
-                //Console.WriteLine($"Adding patch for {patch.Filename}...");
                 result.AddRange(patch.MakeHex());
             }
             return result.ToArray();

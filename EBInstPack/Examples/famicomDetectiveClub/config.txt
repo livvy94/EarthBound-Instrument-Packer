@@ -8,7 +8,7 @@ BRR sample dump offset: overwrite all
   "Japanesque.brr"         $FF $E0 $00 $02 $01
   "Japanesque.brr"         $FF $EE $00 $02 $01
   "Piano (High).brr"       $FF $EE $A0 $03 $00
-  "Gender.brr"             $9F $2F $00 $04 $00
+  "Piano (High).brr"       $FF $EE $A0 $03 $00 ;free slot - used to have a plinky instrument, but I think I can just use the piano
   "ChronoStrings.brr"      $F7 $E4 $A0 $04 $20
   "Drum (Bass).brr"        $FF $E0 $00 $0A $00
   "Drum (Clapping).brr"    $FF $E0 $00 $0A $00

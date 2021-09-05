@@ -61,7 +61,7 @@ namespace EBInstPack
                     result.Add(new BRRFile
                     {
                         dupeStartOffset = HexHelpers.HexStringToUInt16(offsets[1]),
-                        loopPoint = HexHelpers.HexStringToUInt16(offsets[2]),
+                        dupeLoopOffset = HexHelpers.HexStringToUInt16(offsets[2]),
                         data = new byte[0], //empty so the running offset count doesn't get incremented
                         filename = $"Duplicate #{dupeIndex} {nameToLookFor}", //it breaks if there's identical filenames here
                     });
@@ -204,7 +204,7 @@ namespace EBInstPack
                     tempLine = tempLine.Split(';')[0].Trim(); //get rid of comments if there are any
                 }
 
-                if (tempLine.Contains(BASE_INSTRUMENT))
+                if (tempLine.ToLower().Contains(BASE_INSTRUMENT))
                 {
                     if (tempLine.Contains(OVERWRITE)) //change instIndex if "default" isn't in the textfile after all
                         instIndex = 0x00;
