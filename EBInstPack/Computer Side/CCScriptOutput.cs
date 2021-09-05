@@ -10,8 +10,8 @@ namespace EBInstPack
 
         public static string Generate(Config config, byte[] sampleDirectory, byte[] brrDump)
         {
+            var filename = config.outputFilename;
             var patches = config.GetPatches();
-            var filename = config.outputFilename.Replace(" ", ""); //ccscript doesn't like spaces in label names
 
             var result = new StringBuilder();
             result.Append("command inst_pack_loc (target) \"[{byte[2] target} {byte[0] target} {byte[1] target}]\"");

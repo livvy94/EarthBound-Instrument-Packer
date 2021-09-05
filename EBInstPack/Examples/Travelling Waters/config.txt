@@ -1,0 +1,17 @@
+Pack number: 28
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+  "Homey Bass (JV-1080).brr"       $8F $E0 $00 $0F $00
+  "Homey Bass (JV-1080).brr"       $8F $EB $00 $0F $00
+  "Violin (Zenology).brr"          $8F $E0 $00 $01 $EA
+  "Violin (Zenology).brr"          $8F $E8 $00 $01 $EA
+  "Guitar.brr"                     $8F $E0 $00 $04 $00
+  "Guitar.brr"                     $8F $4A $00 $04 $00
+  "Steel Away (JV-1080, wave).brr" $8F $4C $00 $06 $06
+  "Drum (Maracas).brr"             $8F $E0 $00 $08 $00
+  "Drum (Dear Prudence Snare).brr" $8F $E0 $00 $05 $A0
+  "Flowing Water.brr"              $FF $E0 $B8 $14 $00
+}

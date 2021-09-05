@@ -11,8 +11,8 @@ short 40 //Copy the next 40 bytes
 short 0x6C68 //To ARAM offset 6C68
 "[B0 95 8A A3]"
 "[B0 95 8A A3]"
-"[A7 A7 A7 A7]"
-"[E4 AC E4 AC]"
+"[A7 A7 E4 AC]"
+"[E4 AC 58 B4]"
 "[58 B4 71 B9]"
 "[58 B4 71 B9]"
 "[B0 B9 CB B9]"

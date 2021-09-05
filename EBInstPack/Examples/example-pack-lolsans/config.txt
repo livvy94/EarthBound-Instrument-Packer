@@ -4,5 +4,5 @@ BRR sample dump offset: default
 
 #samples
 {
-  "1Asans.brr"   $FF $E0 $B8  $0A $00
+  "sans.brr"   $FF $E0 $B8  $0A $00
 }

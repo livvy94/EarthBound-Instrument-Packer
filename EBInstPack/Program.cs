@@ -52,7 +52,6 @@ namespace EBInstPack
 
             //Validation
             var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);
-            if (tooManyBRRs) return;
 
             config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
             Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}\n");

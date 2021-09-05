@@ -4,5 +4,5 @@ BRR sample dump offset: default
 
 #instruments
 {
-    "glass.brr"  $00 $00 $7F $08 $00
+    "glass.brr"  $FF $E0 $B8 $08 $00
 }

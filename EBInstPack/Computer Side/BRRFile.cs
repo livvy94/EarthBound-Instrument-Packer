@@ -10,6 +10,7 @@ namespace EBInstPack
         public string filename;
 
         public ushort dupeStartOffset; //for duplicates - patches in a secondary pack that point to a primary pack
+        public ushort dupeLoopOffset;
     }
 
     class BRRFunctions

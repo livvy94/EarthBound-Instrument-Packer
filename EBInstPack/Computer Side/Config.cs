@@ -32,7 +32,7 @@ namespace EBInstPack
 
         public Config(string filename, byte packnum, byte baseinst, ushort brrOffset, List<Patch> loadedPatches)
         {
-            outputFilename = filename;
+            outputFilename = filename.Replace(" ", "").Replace("-", ""); //CCScript doesn't like spaces and dashes
             packNumber = packnum;
             baseInstrument = baseinst;
             offsetForBRRdump = brrOffset;
@@ -70,22 +70,29 @@ namespace EBInstPack
                         if (currentSample.filename.Contains("Duplicate"))
                         {
                             tempStartOffset = currentSample.dupeStartOffset;
-                            tempLoopOffset = currentSample.loopPoint;
+                            tempLoopOffset = currentSample.dupeLoopOffset;
                         }
                         else
                         {
                             tempStartOffset = currentAramOffset;
-                            tempLoopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint));
+                            if (currentSample.loopPoint == 0)
+                            {
+                                tempLoopOffset = (ushort)(currentAramOffset + currentSample.data.Length); //loopPoint is 0, so unlooped samples would otherwise loop infinitely
+                            }
+                            else
+                            {
+                                tempLoopOffset = (ushort)(currentAramOffset + BRRFunctions.EncodeLoopPoint(currentSample.loopPoint));
+                            }
                         }
 
-                        var sampleDirectory = new SampleDirectory
+                        var sampleDirEntry = new SampleDirectory
                         {
                             aramOffset = tempStartOffset,
                             loopOffset = tempLoopOffset,
                             Filename = currentSample.filename,
                         };
-                        sampleDirectoriesByFilename[patch.Filename] = sampleDirectory;
-                        resultSampleDirectory.Add(sampleDirectory);
+                        sampleDirectoriesByFilename[patch.Filename] = sampleDirEntry;
+                        resultSampleDirectory.Add(sampleDirEntry);
 
                         currentAramOffset += (ushort)currentSample.data.Length;
                     }

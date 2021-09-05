@@ -9,5 +9,10 @@ BRR sample dump offset: default
   "Sine.brr"      $8F $EF $7F  $02 $00
   "Organ.brr"     $8F $EA $7F  $05 $BA
   "Bass.brr"      $8F $EA $7F  $08 $80
+  "0x7D2F 0x7D5C" $A4 $4B $00 $02 $00
+  "0x7D2F 0x7D5C" $FE $EF $00 $02 $00
+  "0x7D2F 0x7D5C" $FE $EF $00 $02 $00
+  "0x7CCC 0x7D0B" $F3 $E0 $00 $04 $00
+  "0x7CCC 0x7D0B" $FF $EC $00 $04 $00
 }
 

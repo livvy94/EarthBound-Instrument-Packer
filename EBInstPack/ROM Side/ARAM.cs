@@ -34,10 +34,7 @@ namespace EBInstPack
             var availableBytes = maxOffset - offset;
             if (CheckLimit(brrDump, availableBytes))
             {
-                Console.WriteLine();
-                Console.WriteLine($"WARNING - You've gone over the ARAM limit by {brrDump.Length - availableBytes} bytes!");
-                Console.WriteLine("Please try again...");
-                Console.ReadLine();
+                Program.GracefulCrash($"You've gone over the ARAM limit by {brrDump.Length - availableBytes} bytes!");
                 return true;
             }
 
@@ -47,7 +44,9 @@ namespace EBInstPack
         public static bool CheckLimit(byte[] data, int maxPossibleValue)
         {
             var bytesLeft = maxPossibleValue - data.Length;
-            Console.WriteLine($"{data.Length} total bytes of BRR data ({bytesLeft} bytes left)");
+            if (bytesLeft > 0) //if it's negative, the error about going over the ARAM limit should print instead
+                Console.WriteLine($"{data.Length} total bytes of BRR data ({bytesLeft} bytes left)");
+
             if (CalculateOverwrittenBytes(data, maxPossibleValue) > 0)
                 return false;
             else

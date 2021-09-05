@@ -1,0 +1,14 @@
+Pack number: 4A
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+    "01 1A.brr"                      $00 $00 $7F $02 $A3
+    "02 1B.brr"                      $00 $00 $7F $02 $A3
+    "03 1C.brr"                      $00 $00 $7F $02 $A3
+    "04 1D.brr"                      $00 $00 $7F $02 $A3
+    "05 1E.brr"                      $00 $00 $7F $02 $A3
+    "06 1F.brr"                      $00 $00 $7F $02 $A3
+    "07 20.brr"                      $00 $00 $7F $02 $A3
+}
