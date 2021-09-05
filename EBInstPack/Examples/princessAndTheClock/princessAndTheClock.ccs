@@ -16,9 +16,9 @@ short 0x6C68 //To ARAM offset 6C68
 "[58 B4 71 B9]"
 "[58 B4 71 B9]"
 "[B0 B9 CB B9]"
-"[6E 7D A4 7D]"
-"[CC 7C 0B 7D]"
-"[CC 7C 0B 7D]"
+"[6E 7D 00 00]"
+"[CC 7C 00 00]"
+"[CC 7C 00 00]"
 
 //PATCHES
 short 60 //Copy the next 60 bytes

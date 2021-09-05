@@ -1,6 +1,6 @@
 Pack number: 7E
-Base instrument: default
-BRR sample dump offset: default
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
 
 #instruments
 {

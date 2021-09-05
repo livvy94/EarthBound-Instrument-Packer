@@ -1,0 +1,22 @@
+Pack number: 2A
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+    "09 Cymbal.brr"                    $83 $E0 $7F $05 $C5 ;@30 (reverse cymbal)
+    "SGM Timpani HiPass1.brr"          $8F $17 $7F $03 $B8
+    "Better Bass Strings smallest.brr" $89 $E0 $7F $03 $4A ;@32
+    "07 Strings.brr"                   $8A $E0 $7F $05 $BE ;@33 (normal)
+    "07 Strings.brr"                   $00 $00 $7F $05 $BE ;@34 (no atk)
+    "09 Cymbal.brr"                    $8F $F0 $7F $05 $C5 ;@35 (normal cymbal)
+    "03 Glockenspiel.brr"              $8F $EF $7F $05 $FE ;@36 
+    "08 Flute.brr"                     $00 $00 $7F $04 $02 ;@37 (normal)
+    "08 Flute.brr"                     $DF $B9 $7F $04 $02 ;@38 (quick)
+    "05 Choir.brr"                     $8A $ED $7F $06 $D3 ;@39
+    "01 Xylophone.brr"                 $8F $93 $7F $05 $BE ;@40
+    "11 scva tubular bell.brr"         $8F $EE $7F $06 $94 ;@41
+    "scva tuba+horn min.brr"           $F8 $E6 $00 $02 $00 ;@42
+    "Ogre Harp Low.brr"                $FF $F2 $00 $08 $00 ;@43
+    "Ogre Harp High.brr"               $8F $37 $7F $04 $00 ;@44
+}
