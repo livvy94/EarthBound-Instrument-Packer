@@ -1,6 +1,6 @@
 Pack number: 02
-Base instrument: 00
-BRR sample dump offset: 7000
+Base instrument: default
+BRR sample dump offset: default
 
 #samples
 {
