@@ -1,0 +1,12 @@
+Pack number: 15
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Walking Through Water.brr" $FF $E0 $B8 $02 $40
+ "Flute-Sounding thing.brr"  $FF $E0 $B8 $05 $F0
+ "Door.brr"                  $FF $E0 $B8 $02 $40
+ "Warm Pad 2.brr"            $FF $E0 $B8 $04 $A0
+ "Sine Bass.brr"             $8F $F0 $B8 $06 $F0
+}

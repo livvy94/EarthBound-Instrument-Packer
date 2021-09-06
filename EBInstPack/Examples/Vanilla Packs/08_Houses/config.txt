@@ -1,0 +1,16 @@
+Pack number: 08
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Magicant Step.brr"       $FF $E0 $B8 $04 $90
+ "Cash Machine.brr"         $FF $E0 $B8 $05 $50
+ "Door.brr"                 $FF $E0 $B8 $03 $10
+ "Stair Step.brr"           $FF $E0 $B8 $05 $50
+ "Banjo.brr"                $FF $F1 $B8 $04 $00
+ "Woodblock.brr"            $8F $E0 $B8 $04 $90
+ "Nylon Guitar.brr"         $FF $F0 $B8 $06 $00
+ "Nylon Guitar 2.brr"       $FF $F2 $B8 $04 $00
+ "Flute-Sounding thing.brr" $FF $E0 $B8 $03 $60
+}
