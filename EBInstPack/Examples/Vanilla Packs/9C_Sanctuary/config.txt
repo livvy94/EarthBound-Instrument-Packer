@@ -1,0 +1,10 @@
+Pack number: 08
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Cowbell.brr"             $FF $E0 $B8 $08 $D0
+ "Cowbell.brr"             $FF $E0 $B8 $08 $D0
+ "Give Peace A Chance.brr" $FF $E0 $B8 $04 $90
+}
