@@ -57,7 +57,7 @@ namespace EBInstPack
             Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}\n");
 
             var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
-            FileIO.SaveCCScriptFile(ccsFile, folderPath, config.outputFilename);
+            FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
 
             //Check the folder for .EBM files
             var ebmFiles = FileIO.LoadEBMs(folderPath);

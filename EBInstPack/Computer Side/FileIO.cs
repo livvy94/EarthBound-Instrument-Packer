@@ -301,12 +301,13 @@ namespace EBInstPack
             return result;
         }
 
-        public static void SaveCCScriptFile(string result, string outputPath, string filename)
+        public static void SaveCCScriptFile(string result, string outputPath, Config config)
         {
-            var outfile = Path.Combine(outputPath, $"{filename}.ccs");
+            var filename = $"pack_{config.packNumber:X2}_{config.outputFilename}.ccs";
+            var outfile = Path.Combine(outputPath, filename);
             using var writer = new StreamWriter(outfile);
             writer.Write(result);
-            Console.WriteLine($"Wrote {filename}.ccs!");
+            Console.WriteLine($"Wrote {filename}!");
         }
 
         public static void SaveSPCfile(byte[] result, string outputPath, string filename)
