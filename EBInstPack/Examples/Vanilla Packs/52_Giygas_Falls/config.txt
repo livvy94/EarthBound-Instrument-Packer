@@ -1,0 +1,10 @@
+Pack number: 52
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Giygas Choir.brr" $FF $E0 $B8 $0C $00
+ "Giygas Choir.brr" $FF $E0 $B8 $0C $00
+ "Rumbling.brr"     $FF $E0 $B8 $07 $A0
+}
