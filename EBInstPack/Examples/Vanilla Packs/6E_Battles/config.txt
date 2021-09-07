@@ -1,0 +1,11 @@
+Pack number: 6E
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Chorded Synth.brr" $FF $E0 $B8 $1D $F0
+ "Chorded Synth.brr" $8F $F4 $B8 $1D $F0
+ "Rock Organ 3.brr"  $FF $E0 $B8 $0F $80
+ "Sine Bass.brr"     $8F $F0 $B8 $05 $F0
+}

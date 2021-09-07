@@ -1,0 +1,10 @@
+Pack number: 72
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Harpsichord.brr"  $FF $E0 $B8 $06 $F0
+ "Harpsichord.brr"  $8F $F0 $B8 $06 $F0
+ "Steel Guitar.brr" $FF $EF $B8 $05 $F0
+}
