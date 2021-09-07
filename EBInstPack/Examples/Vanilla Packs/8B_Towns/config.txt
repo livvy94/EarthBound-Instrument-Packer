@@ -1,0 +1,12 @@
+Pack number: 8B
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Trombone.brr"       $FF $E0 $B8 $10 $10
+ "Trombone.brr"       $8F $E0 $B8 $10 $10
+ "Nylon Guitar 2.brr" $FF $F2 $B8 $04 $00
+ "Kick 4.brr"         $8F $E0 $B8 $07 $A0
+ "Bongo.brr"          $FF $E0 $B8 $07 $A0
+}
