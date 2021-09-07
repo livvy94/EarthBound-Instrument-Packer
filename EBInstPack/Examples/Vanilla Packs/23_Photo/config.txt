@@ -1,0 +1,12 @@
+Pack number: 23
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Photo.brr"    $FF $E0 $B8 $03 $A0
+ "Alto Sax.brr" $FF $E0 $B8 $05 $C0
+ "Bongo.brr"    $FF $E0 $B8 $07 $A0
+ "Marimba.brr"  $8F $F0 $B8 $03 $00
+ "Snare.brr"    $8F $E0 $B8 $06 $20
+}
