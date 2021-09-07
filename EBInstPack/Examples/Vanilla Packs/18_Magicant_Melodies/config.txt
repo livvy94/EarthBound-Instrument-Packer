@@ -1,0 +1,16 @@
+Pack number: 18
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Magicant Step.brr"   $FF $E0 $B8 $07 $A0
+ "Orchestral Harp.brr" $FF $EC $B8 $05 $B0
+ "Door.brr"            $FF $E0 $B8 $02 $40
+ "Stair Step.brr"      $FF $E0 $B8 $04 $90
+ "Marimba.brr"         $8F $F0 $B8 $04 $00
+ "Harpsichord.brr"     $8F $F0 $B8 $06 $F0
+ "Electric Grand.brr"  $8F $EF $B8 $03 $00
+ "Crash Cymbal.brr"    $8F $E0 $B8 $07 $A0
+ "Bongo.brr"           $FF $E0 $BA $07 $A0
+}
