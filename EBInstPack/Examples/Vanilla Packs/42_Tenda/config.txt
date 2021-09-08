@@ -1,0 +1,10 @@
+Pack number: 42
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Walking Through Water.brr" $FF $E0 $B8 $02 $40
+ "Music Box.brr"             $8F $F3 $B8 $04 $D0
+ "Cuica.brr"                 $FF $E0 $B8 $05 $80
+}

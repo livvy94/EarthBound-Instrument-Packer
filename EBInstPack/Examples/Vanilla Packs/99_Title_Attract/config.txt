@@ -1,0 +1,13 @@
+Pack number: 99
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Kick 2.brr"        $FF $E0 $B8 $07 $A0
+ "Ride Cymbal.brr"   $FF $ED $B8 $04 $60
+ "Orchestra Hit.brr" $FF $F1 $B8 $06 $D0
+ "Trumpet.brr"       $8F $EB $B8 $03 $00
+ "Flugel Horn.brr"   $FF $E0 $B8 $0A $00
+ "Open Hi Hat.brr"   $8F $E0 $B8 $05 $50
+}

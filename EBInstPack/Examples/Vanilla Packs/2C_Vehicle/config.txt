@@ -1,0 +1,10 @@
+Pack number: 2C
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Flowing Water.brr" $FF $E0 $B8 $14 $00
+ "Flowing Water.brr" $FF $E0 $B8 $14 $00
+ "Power Snare 2.brr" $8F $E0 $B8 $07 $A0
+}

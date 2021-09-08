@@ -1,0 +1,9 @@
+Pack number: 5F
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Bulldozer.brr" $FF $E0 $B8 $02 $80
+ "Bulldozer.brr" $8F $E0 $B8 $02 $80
+}

@@ -1,0 +1,14 @@
+Pack number: 76
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Maracas.brr"          $FF $E0 $B8 $07 $A0
+ "Maracas.brr"          $FF $E0 $B8 $07 $A0
+ "Maracas.brr"          $FF $E0 $B8 $07 $A0
+ "Conga.brr"            $FF $E0 $B8 $07 $A0
+ "Muted Guitar.brr"     $FF $E0 $B8 $07 $A0
+ "Chorded Guitar 2.brr" $FF $F0 $B8 $0A $60
+ "Acoustic Bass.brr"    $8F $F2 $B8 $0F $10
+}
