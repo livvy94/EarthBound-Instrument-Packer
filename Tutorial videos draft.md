@@ -6,7 +6,7 @@ This tutorial series will come to you in multiple parts in this playlist. Click 
 
 As time goes on, I'd like to swap in new versions of the videos in here if need be. I'm imagining someone in the comments asking a really good question, or me from the future realizing that something could have been worded in a way that's easier to understand.
 
-Also, EBMusEd itself is still being worked on by the community, and people have expressed interest in possibly even changing how it works for better integration with CoilSnake, the 
+Also, EBMusEd and the process of music hacking itself is still being worked on by the community! So if anything changes significantly, I'd want to update these videos to reflect that.
 
 Well, I hope you enjoy!
 
@@ -15,7 +15,7 @@ The SNES has eight channels, which means that eight voices can be playing at onc
 
 The samples are small, carefully-made waveforms, compressed into BRR files, and loaded into audio memory.
 
-The sound engine, pattern data, and the echo buffer shares the same block of memory, and if you use too much echo, it eats your instruments and sounds like this.
+The sound engine, sequence data, and the echo buffer shares the same block of memory, and if you use too much echo, it eats your instruments and sounds like this.
 
 Making BRRs will be covered in a future video.
 
@@ -65,11 +65,11 @@ If you're just interested in making a standalone song, then you probably won't n
 ## Note Lengths
 One of the worst hurdles to learning EBMusEd is understanding the concept of note lengths.
 
-In trackers, everything is the same length, and in MIDI it's very visual so you can just drag notes around without worrying about stuff like that.
+In trackers, everything is the same length, and in MIDI, it's very visual so you can just drag notes around without worrying about stuff like that.
 
 Here, you have to specify note lengths. It's not too bad once you get used to it though.
 
-Like most of the commands in EBMusEd (and in retro programming in general), note length commands are in hexadecimal. If you don't know what hex is, it's a special way of writing numbers that computers use. It goes like 1 2 3 4 5 6 7 8 9 A B C D E F 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F 20 21 22, and so on. This may seem super weird already, but like a lot of things, you get used to it surprisingly quickly 'cause you have use it so often.
+Like most of the commands in EBMusEd (and in retro programming in general), note length commands are in hexadecimal. If you don't know what hex is, it's a special way of writing numbers that computers use. It goes like 1 2 3 4 5 6 7 8 9 A B C D E F 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F 20 21 22, and so on. This may seem super weird already, but like a lot of things, you get used to it surprisingly quickly 'cause you have to use it so often.
 
 The format of a note length command is `[number of ticks] [optional release time & volume descriptor]`
 
@@ -79,21 +79,21 @@ Another example is `[18 7F]`. This sets the note length to 18, and sets the rele
 
 Another example is `[18 0F]`. This sets the note length to 18, sets the release time to 0 (makes it really staccato), and sets the volume to full.
 
-The first part is release time, and it goes from 0 to 7. The second part is the volume, and it goes from 0 to F.
+The first part is release time, and it goes from `0` to `7`. The second part is the volume, and it goes from `0` to `F`.
 
 Messing around with this optional part of a note length can make things sound a little more human, or interesting.
 
 (Show an example from the vanilla game)
 
-A big part of what I do is starting with a small value like 06, and then compressing as I go.
+A big part of what I do is starting with a small value like `06`, and then compressing as I go.
 
 To compress note lengths, add them up with a hex calculator. Every windows computer comes with one, press start and type Calculator. Then click the menu and choose Programmer mode.
 
-To compress these four notes, multiply the length of 06 by four, to get 18!
+To compress these four notes, multiply the length of `06` by four, to get `18`!
 
 (continue with the rest of the channel)
 
-As you can see, once you set the note length, each note afterwards will play at that length. To avoid this, I'm going to put an 06 after this stuff so it still looks the same.
+As you can see, once you set the note length, each note afterwards will play at that length. To avoid this, I'm going to put an `06` after this stuff so it still looks the same.
 
 ## Inserting Notes
 
@@ -109,12 +109,12 @@ C9 - Rest
 
 C8 - Continue previous note
 
-Don't use Ctrl-S - It saves, then thinks you're typing S and inserts a note. Oops!
+Don't use Ctrl-S - It saves, then thinks you're typing S and inserts a note.
 
 ### Subroutines
 To create a subroutine, (show the menu dropdown)
 
-Here's an example of the syntax you use when referring to subroutines in the hex box: *0,2
+Here's an example of the syntax you use when referring to subroutines in the hex box: `*0,2`
 
 This means "repeat subroutine 0 two times"
 
