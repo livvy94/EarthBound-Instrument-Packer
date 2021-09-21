@@ -1,0 +1,17 @@
+Pack number: 34
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+    "Bass.brr"                 $8F $E0 $00  $10 $00
+    "GS Mikami Brass.brr"      $8F $E0 $00  $04 $80
+    "Strings.brr"              $86 $E0 $00  $03 $D0
+    "Flute.brr"                $8F $E5 $00  $04 $02
+    "Harp.brr"                 $8F $EC $00  $04 $02
+    "Marimba.brr"              $8F $EA $00  $04 $02
+    "EB Noise.brr"             $8F $E0 $B8  $00 $E0
+    "Drum (Bass).brr"          $8F $E0 $00  $07 $00
+    "Drum (Snare).brr"         $8F $E0 $00  $07 $00
+    "Drum (Closed Hi-hat).brr" $8F $E0 $00  $07 $00
+}
