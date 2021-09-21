@@ -1,0 +1,10 @@
+Pack number: 28
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Keep On Laughin.brr" $FF $E0 $B8 $07 $A0
+ "Keep On Laughin.brr" $FF $E0 $B8 $07 $A0
+ "Door.brr"            $FF $E0 $B8 $02 $40
+}

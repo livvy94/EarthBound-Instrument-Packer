@@ -1,0 +1,11 @@
+Pack number: 83
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Buzz Buzz.brr"   $FF $E0 $B8 $0A $90
+ "Police Car.brr"  $FF $E0 $B8 $0E $F0
+ "Door.brr"        $FF $E0 $B8 $03 $D0
+ "Stair Step.brr"  $FF $E0 $B8 $04 $90
+}

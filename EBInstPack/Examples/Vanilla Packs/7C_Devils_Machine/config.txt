@@ -1,0 +1,13 @@
+Pack number: 7C
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Overdriven Guitar.brr"      $FF $E0 $B8 $07 $90
+ "Overdriven Guitar.brr"      $FF $E0 $B8 $07 $90
+ "Power Snare.brr"            $8F $E0 $B8 $05 $50
+ "Open Hi Hat 2.brr"          $8F $E0 $B8 $06 $20
+ "Kick 5.brr"                 $FF $E0 $B8 $05 $50
+ "Electric Bass (Finger).brr" $FF $EC $B8 $16 $20
+}

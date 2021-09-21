@@ -1,0 +1,9 @@
+Pack number: 4A
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Robot Step.brr" $FF $E0 $B8 $04 $90
+ "Deidre.brr"     $FF $E0 $B8 $06 $E0
+}

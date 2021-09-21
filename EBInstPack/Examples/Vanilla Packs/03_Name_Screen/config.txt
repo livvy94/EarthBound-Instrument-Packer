@@ -1,0 +1,16 @@
+Pack number: 03
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+"Warm Pad.brr"                         $FF $E0 $B8 $02 $E0
+"Electric Snare 2.brr"                 $FF $E0 $B8 $06 $D0
+"Liberty Bell.brr"                     $FF $E0 $B8 $04 $90
+"Name Screen Voice.brr"                $FF $E0 $B8 $02 $40
+"Kick 3.brr"                           $8F $E0 $B8 $07 $A0
+"Ok-Desu Ka.brr"                       $FF $E0 $B8 $04 $90
+"Wow!.brr"                             $FF $E0 $B8 $04 $90
+"Sine-like Synth.brr"                  $FF $E0 $B8 $04 $90
+"Cursor.brr"                           $FF $E0 $B8 $01 $00
+}

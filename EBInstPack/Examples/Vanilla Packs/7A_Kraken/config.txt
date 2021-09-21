@@ -1,0 +1,23 @@
+Pack number: 7A
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Wave Env 1.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 2.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 3.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 4.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 1.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 2.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 3.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 4.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 5.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 6.brr"       $FF $E0 $B8 $06 $F0
+ "Wave Env 7.brr"       $FF $E0 $B8 $06 $F0
+ "Triangle Synth.brr"   $FF $E0 $B8 $03 $00
+ "Drawback Organ 2.brr" $8F $E0 $B8 $09 $F0
+ "Open Hi Hat 2.brr"    $FF $E0 $B8 $07 $A0
+ "Open Hi Hat 2.brr"    $8F $E0 $B8 $07 $A0
+ "Synth Voice.brr"      $FF $E0 $B8 $02 $E0
+}

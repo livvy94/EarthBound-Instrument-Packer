@@ -1,0 +1,11 @@
+Pack number: 7E
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Sgt Pepper.brr"      $FF $E0 $B8 $06 $20
+ "Sgt Pepper.brr"      $8F $E0 $B8 $06 $20
+ "Dungeon Lead.brr"    $FF $E0 $B8 $06 $20
+ "Welcome Goldman.brr" $FF $E0 $B8 $02 $A0
+}

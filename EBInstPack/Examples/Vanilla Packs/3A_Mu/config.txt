@@ -1,0 +1,9 @@
+Pack number: 3A
+Base instrument: default
+BRR sample dump offset: default
+
+#samples
+{
+ "Mu.brr" $FF $E0 $B8 $00 $40
+ "Mu.brr" $FF $E0 $B8 $00 $40
+}
