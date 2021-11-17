@@ -1,5 +1,5 @@
 # EBMusEd tutorial ideas:
-## Welcome!
+## 00 Welcome!
 Hello! vince94 here.
 
 This tutorial series will come to you in multiple parts in this playlist. Click here to go to it!
@@ -10,7 +10,7 @@ Also, EBMusEd and the process of music hacking itself is still being worked on b
 
 Well, I hope you enjoy!
 
-## How Audio on the SNES works
+## 01 How Audio on the SNES works
 The SNES has eight channels, which means that eight voices can be playing at once, including sound effects which game engines usually reserve for the last two.
 
 The samples are small, carefully-made waveforms, compressed into BRR files, and loaded into audio memory.
@@ -19,13 +19,13 @@ The sound engine, sequence data, and the echo buffer shares the same block of me
 
 Making BRRs will be covered in a future video.
 
-## How CoilSnake works
+## 02 How CoilSnake works
 - What it is
 - What Base ROMs are
 - Decompiling
 - Compiling a new ROM
 
-## Enabling the debug menu
+## 03 Enabling the debug menu
 
 To play your song in an emulator, or on actual hardware if you have a flashcart, you'll want to enable the debug menu. To do this:
 
@@ -33,7 +33,7 @@ To play your song in an emulator, or on actual hardware if you have a flashcart,
 
 Alternately, if you're using CoilSnake, you can put the following text in any CCScript file and it'll get compiled into the game.
 
-## Workflow
+## 04 Workflow
 
 Here are two use cases I can think of for someone who wants to use EBMusEd.
 
@@ -62,7 +62,7 @@ If you're just interested in making a standalone song, then you probably won't n
 1. Open the Base ROM, and _import_ that file.
 1. Compile your CoilSnake project again. With the song in the Base ROM, it will now be available for you to use in the hack! Be it via the debug menu, in a battle, or with the CCScript music() command in the middle of some dialog text.
 
-## Note Lengths
+## 05 Note Lengths
 One of the worst hurdles to learning EBMusEd is understanding the concept of note lengths.
 
 In trackers, everything is the same length, and in MIDI, it's very visual so you can just drag notes around without worrying about stuff like that.
@@ -95,7 +95,7 @@ To compress these four notes, multiply the length of `06` by four, to get `18`!
 
 As you can see, once you set the note length, each note afterwards will play at that length. To avoid this, I'm going to put an `06` after this stuff so it still looks the same.
 
-## Inserting Notes
+## 06 Inserting Notes
 
 To insert notes, either use the keyboard or PK Piano.
 
@@ -111,7 +111,7 @@ C8 - Continue previous note
 
 Don't use Ctrl-S - It saves, then thinks you're typing S and inserts a note.
 
-### Subroutines
+## 07 Subroutines
 To create a subroutine, (show the menu dropdown)
 
 Here's an example of the syntax you use when referring to subroutines in the hex box: `*0,2`
@@ -126,7 +126,7 @@ Make sure each channel ends on the same tick, otherwise it glitches up in-game!
 
 Whenever I have to deal with this problem, I usually copy all of the notes that are in the subroutine, paste them here, and just manually shorten the last note so it doesn't go over.
 
-## Patterns
+## 08 Patterns
 The `Add` button adds a new pattern.
 
 The `Insert` button inserts a duplicate of the currently-selected pattern.

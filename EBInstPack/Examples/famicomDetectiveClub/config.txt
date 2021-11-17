@@ -1,6 +1,6 @@
 Pack number: 9C
 Base instrument: overwrite all
-BRR sample dump offset: overwrite all
+BRR sample dump offset: 6F98
 
 #instruments
 {
