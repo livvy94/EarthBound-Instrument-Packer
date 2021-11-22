@@ -22,7 +22,8 @@ namespace EBInstPack
             result.Append($"ROM[{GetPointerOffset(config.packNumber)}] = inst_pack_loc({filename})");
             result.Append(NEWLINE);
             result.Append(NEWLINE);
-            result.Append("//Highest possible delay value for this pack: " + config.maxDelay.ToString("X2"));
+            result.Append($"//Highest possible delay value for this pack: {config.maxDelay:X2}\n");
+            result.Append($"//These BRRs will be loaded into ARAM from {config.offsetForBRRdump:X4} to {config.offsetForBRRdump + brrDump.Length:X4}.");
             result.Append(NEWLINE);
             result.Append(NEWLINE);
             result.Append(filename);

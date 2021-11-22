@@ -54,7 +54,8 @@ namespace EBInstPack
             var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);
 
             config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
-            Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}\n");
+            Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}");
+            Console.WriteLine($"These BRRs will be loaded into ARAM from {config.offsetForBRRdump:X4} to {config.offsetForBRRdump + brrDump.Length:X4}.\n");
 
             var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
             FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
