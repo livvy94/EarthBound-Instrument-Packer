@@ -1,6 +1,11 @@
 ## A BRR import tool for use with the [EarthBound Music Editor](https://github.com/PKHackers/ebmused/releases)
 
-Usage:
+Using this tool, it is possible to import BRR instruments, either created from WAV files you record yourself or [ripped from other SNES games](https://www.smwcentral.net/?p=section&s=brrsamples), and import them into an EarthBound ROM, which you can then make music with via EBMusEd!
+
+## Tutorial
+(Working on it! Check back here in a while.)
+
+## Usage
 
 Create a folder with this structure:
 ```
@@ -19,5 +24,3 @@ In addition to this, if there are any .ebm files present in the folder, it will 
 * * *
 
 Releases can be found [**here**](https://github.com/vince94/EarthBound-Instrument-Packer/releases), and examples of how to format your config files can be found [**here**](https://github.com/vince94/EarthBound-Instrument-Packer/tree/master/EBInstPack/Examples).
-
-You can rip or create your own BRR files (tutorial incoming...!), or use ones found on [SMWCentral](https://www.smwcentral.net/?p=section&s=brrsamples)!
