@@ -1,0 +1,35 @@
+Pack number: 05
+Base instrument: overwrite
+BRR sample dump offset: overwrite
+
+#instruments
+{
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "12 SCVA Noise With Cutoff.brr"  $FF $E0 $00 $0A $8D
+    "typewriter_type2.brr"           $FF $E0 $B8 $0A $00
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "typewriter_type.brr"            $8F $E0 $B8 $0A $00
+    "typewriter_type2.brr"           $FF $E0 $B8 $02 $00
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "02 SynthDist.brr"               $FF $E0 $00 $03 $D5
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "typewriter_type2.brr"           $FF $E0 $B8 $02 $00
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "12 SCVA Noise With Cutoff.brr"  $FF $E0 $00 $0A $8D
+    "12 SCVA Noise With Cutoff.brr"  $FF $E0 $00 $0A $8D
+    "12 SCVA Noise With Cutoff.brr"  $FF $E0 $00 $0A $8D
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+    "03 SynthSaw.brr"                $FF $E0 $00 $03 $D5
+}

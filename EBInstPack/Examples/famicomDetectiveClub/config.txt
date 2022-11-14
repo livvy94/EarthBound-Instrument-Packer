@@ -14,4 +14,5 @@ BRR sample dump offset: 6F98
   "Drum (Clapping).brr"    $FF $E0 $00 $0A $00
   "Drum (Hihat short).brr" $FF $E0 $00 $0A $00
   "Drum (Tom).brr"         $FF $E0 $00 $0A $00
+  "Noise (White).brr"      $00 $00 $7F $06 $00
 }

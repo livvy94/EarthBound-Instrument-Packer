@@ -1,0 +1,26 @@
+Pack number: 02
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#samples
+{
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;00 I'm putting this synth everywhere I want to dummy out stuff
+ "Recorder.brr"         $FF $E0 $B8 $02 $00 ;used in Mother Earth
+ "Nylon Guitar.brr"     $FF $F0 $B8 $06 $00 ;used in Mother Earth
+ "French Horn.brr"      $FF $E0 $B8 $03 $00 ;used in Mother Earth
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;used in Mother Earth
+ "typewriter_type2.brr" $FF $E0 $B8 $0A $00 ;SFX for removing a letter, up/down in the menu
+ "Closed Hi Hat.brr"    $8F $E0 $B8 $07 $A0 ;used in Mother Earth
+ "typewriter_type.brr"  $8F $E0 $B8 $0A $00 ;SFX for clicking a letter
+ "typewriter_type2.brr" $FF $E0 $B8 $02 $00 ;SFX for going right/left in the menu
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Electric Snare.brr"   $8F $E0 $B8 $07 $A0 ;used in Mother Earth
+ "phantasmagorical.brr" $FF $E0 $B8 $03 $00 ;SFX, used when you hit Start
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Ok-Desu Ka.brr"       $FF $E0 $B8 $04 $90 ;SFX, used when you click OK
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+ "Sine-like Synth.brr"  $FF $E0 $B8 $01 $00 ;dummy
+}

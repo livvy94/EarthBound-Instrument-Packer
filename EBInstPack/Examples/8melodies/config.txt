@@ -4,14 +4,22 @@ BRR sample dump offset: overwrite all
 
 #instruments
 {
-    "1APianoFixed.brr"               $FF $E0 $B8 $05 $20
-    "1BSC55ElecPiano.brr"            $8F $AE $7F $08 $08
-    "1BSC55ElecPiano.brr"            $00 $00 $7F $08 $08
-    "1CPIASYN.brr"                   $9F $CE $7F $08 $08
-    "1DAmpGuitar.brr"                $00 $00 $7F $03 $D4
+    "EB Fretless Bass.brr"           $FF $E0 $B8 $10 $00
+    "EB French Horn.brr"             $FF $E0 $B8 $03 $00
+    "EB Sawtooth Wave.brr"           $FF $E0 $B8 $04 $00
+    "1APianoFixed.brr"               $FF $E0 $B8 $04 $E2
+    "1BSC55ElecPiano.brr"            $8F $AE $7F $06 $00
+    "1BSC55ElecPiano.brr"            $00 $00 $7F $06 $00
+    "1CPIASYN.brr"                   $9F $CE $7F $08 $02
+    "1DAmpGuitar.brr"                $00 $00 $7F $07 $90
     "1EBassDrum.brr"                 $00 $00 $7F $03 $D4
     "1FDearPrudenceSnare.brr"        $00 $00 $7F $05 $BE
     "20AcousticTom.brr"              $00 $00 $7F $04 $00
     "21HiHatFoot.brr"                $00 $00 $7F $07 $A8
+    "22Cymbal.brr"                   $8F $EF $7F $05 $48
+    "22Cymbal.brr"                   $8F $EF $7F $05 $48
+    "22Cymbal.brr"                   $8F $EF $7F $05 $48
+    "22Cymbal.brr"                   $8F $EF $7F $05 $48
+    "22Cymbal.brr"                   $8F $EF $7F $05 $48
     "22Cymbal.brr"                   $8F $EF $7F $05 $48
 }

@@ -4,6 +4,7 @@ command inst_pack_loc (target) "[{byte[2] target} {byte[0] target} {byte[1] targ
 ROM[0xC4F9E3] = inst_pack_loc(petal_crash_trailer)
 
 //Highest possible delay value for this pack: 08
+//These BRRs will be loaded into ARAM from 7000 to BC53.
 
 petal_crash_trailer: {
 //SAMPLE DIRECTORY

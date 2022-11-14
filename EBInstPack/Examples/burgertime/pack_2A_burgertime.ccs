@@ -4,6 +4,7 @@ command inst_pack_loc (target) "[{byte[2] target} {byte[0] target} {byte[1] targ
 ROM[0xC4F9C5] = inst_pack_loc(burgertime)
 
 //Highest possible delay value for this pack: 05
+//These BRRs will be loaded into ARAM from 7000 to D588.
 
 burgertime: {
 //SAMPLE DIRECTORY
