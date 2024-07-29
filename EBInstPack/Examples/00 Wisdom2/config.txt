@@ -1,0 +1,15 @@
+Pack number: 2A
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+  "Pad 2.brr"    $FA $EE $B8  $03 $CA
+  "Tom.brr"        $FF $F3 $B8  $0F $70
+  "Flute.brr"      $FF $E0 $B8  $05 $50
+  "Shaker.brr"     $FF $E0 $B8  $06 $E0
+  "Pad 2.brr"    $FA $E0 $B8  $03 $CA
+  "RunawayFiveOrgan.brr" $FF $E0 $B8  $03 $70
+  "Deep Bass.brr"  $8F $F4 $B8  $10 $F0
+}
+

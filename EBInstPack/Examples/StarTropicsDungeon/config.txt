@@ -1,0 +1,14 @@
+Pack number: 28
+Base instrument: overwrite all
+BRR sample dump offset: overwrite all
+
+#instruments
+{
+  "Bass.brr"           $8F $E3 $00 $03 $B6
+  "KorgM1Atlantis.brr" $8F $E0 $00 $07 $A4
+  "Marimba.brr"        $8F $F3 $00 $08 $00
+  "ShakerLoop1.brr"    $8F $E0 $00 $04 $00
+  "ShakerLoop2.brr"    $8F $E0 $00 $04 $00
+  "KICK1.brr"          $8F $E0 $00 $07 $00
+  "SDAR.brr"           $8F $E0 $00 $07 $00
+}

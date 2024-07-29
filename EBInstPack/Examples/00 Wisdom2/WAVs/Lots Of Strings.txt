@@ -1,0 +1,19 @@
+005 Arco Basses
+006 Arco Celli
+007 Arco Violas
+008 Arco Violins
+009 Marcato 1 (includes a bass note)
+010 Marcato 2 (includes a bass note, very similar and I had to go down an octave to get the same pitches)
+012 Concerto
+022 Resting Pad (I think this is the weird octave one)
+050 Timpani (thought I'd throw this in there, it's cool)
+084 Gently Now (I guess a few of these have the weird multi-octave thing going)
+099 RoomOfStrings
+109 String Thing
+125 Whistl'n Joe (this is the lead from the X-Files theme song)
+142 CelloPhane (I tried making a BRR of this one and it didn't sound good. The bass note is neat though)
+147 Arco Vlns (wait, didn't we already do this one?)
+148 Arco Duet
+149 Str Section (is it just me or are all of these sounding the same)
+150 Arco Strings (This appears to have some kind of weird volume envelope)
+151 In The Pit

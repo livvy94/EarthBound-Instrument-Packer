@@ -13,5 +13,7 @@ BRR sample dump offset: overwrite all
   "Steel Away (JV-1080, wave).brr" $8F $4C $00 $06 $06
   "Drum (Maracas).brr"             $8F $E0 $00 $08 $00
   "Drum (Dear Prudence Snare).brr" $8F $E0 $00 $05 $A0
+  "Clear Guitar (JV-1080).brr"     $8F $E0 $00 $04 $00
+  "Clear Guitar (JV-1080).brr"     $8F $4A $00 $04 $00
   "Flowing Water.brr"              $FF $E0 $B8 $14 $00
 }

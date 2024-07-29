@@ -1,0 +1,11 @@
+Pack number: 2A
+Base instrument: default
+BRR sample dump offset: default
+
+#instruments
+{
+  "Saxophone.brr"    $FF $E0 $B8  $05 $C0
+  "Bongo.brr"        $FF $E0 $B8  $07 $A0
+  "Piano 1.brr"      $FF $F1 $00  $07 $00
+}
+
