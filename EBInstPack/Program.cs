@@ -43,7 +43,7 @@ namespace EBInstPack
                 if (FileIO.FolderNonexistant(folderPath)) return;
             }
 
-            if (folderPath.Contains(".snake")) 
+            if (folderPath.Contains(".snake"))
             {
                 //TODO: Code to process an entire CoilSnake project!
                 //Load \Music\songs.yml
@@ -61,38 +61,41 @@ namespace EBInstPack
                 //    Do LoadBRRs using that!
                 //    Do GenerateSampleDirectory and brrdump for both the primary and secondary packs.
             }
-
-            //load the config.txt
-            var config = FileIO.LoadConfig(folderPath);
-            var samples = FileIO.LoadBRRs(folderPath);
-
-            //Generate all the hex
-            var sampleDirectory = Config.GenerateSampleDirectory(config, samples);
-            var brrDump = BRRFunctions.Combine(samples);
-
-            //Validation
-            var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);
-
-            config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
-            Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}");
-            Console.WriteLine($"These BRRs will be loaded into ARAM from {config.offsetForBRRdump:X4} to {config.offsetForBRRdump + brrDump.Length:X4}.\n");
-
-            if (SAVE_CCS_FILE)
+            else 
             {
-                var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
-                FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
-            }
+                //It's a singular folder, continue how I originally designed it
+                //load the config.txt
+                var config = FileIO.LoadConfig(folderPath);
+                var samples = FileIO.LoadBRRs(folderPath);
 
-            //Check the folder for .EBM files
-            var ebmFiles = FileIO.LoadEBMs(folderPath);
-            foreach (var song in ebmFiles)
-            {
-                var spc = new PreviewSPC(config, sampleDirectory, brrDump, song);
-                FileIO.SaveSPCfile(spc.filedata, folderPath, song.name);
-            }
+                //Generate all the hex
+                var sampleDirectory = Config.GenerateSampleDirectory(config, samples);
+                var brrDump = BRRFunctions.Combine(samples);
 
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+                //Validation
+                var tooManyBRRs = ARAM.CheckBRRLimit(brrDump, config.offsetForBRRdump);
+
+                config.maxDelay = ARAM.GetMaxDelayPossible(brrDump, config.offsetForBRRdump);
+                Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}");
+                Console.WriteLine($"These BRRs will be loaded into ARAM from {config.offsetForBRRdump:X4} to {config.offsetForBRRdump + brrDump.Length:X4}.\n");
+
+                if (SAVE_CCS_FILE)
+                {
+                    var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
+                    FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
+                }
+
+                //Check the folder for .EBM files
+                var ebmFiles = FileIO.LoadEBMs(folderPath);
+                foreach (var song in ebmFiles)
+                {
+                    var spc = new PreviewSPC(config, sampleDirectory, brrDump, song);
+                    FileIO.SaveSPCfile(spc.filedata, folderPath, song.name);
+                }
+
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+            }
         }
 
         public static void GracefulCrash(string message)
