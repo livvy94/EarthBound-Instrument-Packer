@@ -14,24 +14,25 @@ namespace EBInstPack
         static void Main(string[] args)
         {
             const bool DEBUG = false;
+            const bool SAVE_CCS_FILE = false;
             string folderPath;
 
             Console.Title = "EarthBound Instrument Packer";
 
-            //load the folder contents
+            //TODO: Do code-diving to get familiar with this thing's layout and structure
+
             if (DEBUG)
             {
-                folderPath = @"C:\Users\vince\Dropbox\Programming scratchpad\EarthBound-Instrument-Packer\EBInstPack\Examples\famicomDetectiveClub";
+                folderPath = @"C:\Users\vince\OneDrive\Desktop\EarthBound-Instrument-Packer\EBInstPack\Examples\famicomDetectiveClub";
             }
             else
             {
                 if (args.Length == 0) //If they just double-clicked the exe - no args present
                 {
                     Console.WriteLine("Command-line usage:");
-                    Console.WriteLine("   EBInstPack [folder path in quotes]");
-                    Console.WriteLine("   Or just drag the folder onto the EXE!");
+                    Console.WriteLine("   EBInstPack [folder path in quotes, or .snake file]");
                     Console.WriteLine();
-                    Console.WriteLine("Input the folder path where the samples & text file are:");
+                    Console.WriteLine("Input the a path to the samples & text file:");
                     folderPath = Console.ReadLine();
                 }
                 else
@@ -40,6 +41,25 @@ namespace EBInstPack
                 }
 
                 if (FileIO.FolderNonexistant(folderPath)) return;
+            }
+
+            if (folderPath.Contains(".snake")) 
+            {
+                //TODO: Code to process an entire CoilSnake project!
+                //Load \Music\songs.yml
+                //For each entry (containing Song Pack and the name of an EBM file):
+                //If there's no "Song Pack" field (for "Song to Reference" type stuff" skip it
+                //If Song Pack is "in-engine" the folder name is "01"
+                //Go to the Song Pack folder
+                //If the EBM file doesn't exist, pause execution and say so
+                //If the ebm.yml file doesn't exist, pause execution and say so
+
+                //Check if there's an SPC file there
+                //If so, check if Date Modified is younger than 7 days
+                //If so, generate the SPC file again!
+                //    Open the ebm.yml file and load the primary and secondary pack numbers.
+                //    Do LoadBRRs using that!
+                //    Do GenerateSampleDirectory and brrdump for both the primary and secondary packs.
             }
 
             //load the config.txt
@@ -57,8 +77,11 @@ namespace EBInstPack
             Console.WriteLine($"Highest possible delay value for this pack: {config.maxDelay:X2}");
             Console.WriteLine($"These BRRs will be loaded into ARAM from {config.offsetForBRRdump:X4} to {config.offsetForBRRdump + brrDump.Length:X4}.\n");
 
-            var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
-            FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
+            if (SAVE_CCS_FILE)
+            {
+                var ccsFile = CCScriptOutput.Generate(config, sampleDirectory, brrDump);
+                FileIO.SaveCCScriptFile(ccsFile, folderPath, config);
+            }
 
             //Check the folder for .EBM files
             var ebmFiles = FileIO.LoadEBMs(folderPath);
