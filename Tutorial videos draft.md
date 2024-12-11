@@ -1,6 +1,6 @@
 # EBMusEd tutorial ideas:
 ## 00 Welcome!
-Hello! vince94 here.
+Hello! livvy94 here.
 
 This tutorial series will come to you in multiple parts in this playlist. Click here to go to it!
 
