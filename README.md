@@ -1,3 +1,8 @@
+# This tool is now deprecated.
+The functionality of this tool is now integrated into CoilSnake, the EarthBound hacking tool. Please use it instead!
+
+* * *
+
 ## A BRR import tool for use with the [EarthBound Music Editor](https://github.com/PKHackers/ebmused/releases)
 
 Using this tool, it is possible to import BRR instruments either converted from WAV files you recorded yourself or [ripped from other SNES games](https://www.smwcentral.net/?p=section&s=brrsamples)) and import them into an EarthBound ROM, which you can then make music with via EBMusEd! The only limit is your imagination...and the SNES's Audio RAM limit.
