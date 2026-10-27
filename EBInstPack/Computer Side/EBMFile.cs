@@ -13,9 +13,17 @@ namespace EBInstPack
         public EBMFile(string filename, byte[] filedata)
         {
             //the header is "copy (size) bytes to (offset)", and we want the data and the offset seperately
-            aramOffset = BitConverter.ToUInt16(new byte[] { filedata[2], filedata[3] }); //TODO: Check endian weirdness
+            aramOffset = BitConverter.ToUInt16(new byte[] { filedata[2], filedata[3] });
             data = IsolateSequenceData(filedata);
             name = filename;
+        }
+
+        public EBMFile()
+        {
+            //use Nothing.ebm
+            aramOffset = 0x0058;
+            data = IsolateSequenceData(Properties.Resources.Nothing);
+            name = "Untitled";
         }
 
         private byte[] IsolateSequenceData(byte[] fileData)

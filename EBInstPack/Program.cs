@@ -78,6 +78,15 @@ namespace EBInstPack
 
                 //Check the folder for .EBM files
                 var ebmFiles = FileIO.LoadEBMs(folderPath);
+
+                if (ebmFiles.Count == 0)
+                {
+                    Console.WriteLine("No .EBM files were found in this folder. Use an empty one? (Y/N)");
+                    var key = Console.ReadLine();
+                    if (key == "Y" || key == "y")
+                        ebmFiles.Add(new EBMFile()); //use Nothing.ebm in the Resources folder
+                }
+
                 foreach (var song in ebmFiles)
                 {
                     var spc = new PreviewSPC(config, sampleDirectory, brrDump, song);

@@ -44,10 +44,12 @@
   <ItemGroup>
     <None Remove="DotNet Core Build EXE.bat" />
     <None Remove="Resources\N-SPC Test.spc" />
+    <None Remove="Resources\Nothing.ebm" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\N-SPC Test.spc" />
+    <EmbeddedResource Include="Resources\Nothing.ebm" />
   </ItemGroup>
 
   <ItemGroup>
