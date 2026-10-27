@@ -4,13 +4,6 @@ namespace EBInstPack
 {
     class Program
     {
-        //TODO:
-        //Edge-case bugs that people find
-        //Comission an icon for the program
-        //Make it so it puts the BRRs in the CCScript file seperately and puts a comment with the filename
-        //Recreate vanilla packs in the Examples folder to make them easier for people to modify
-        //Finish songs instead of messing with this!!!
-
         static void Main(string[] args)
         {
             const bool DEBUG = false;
@@ -19,20 +12,18 @@ namespace EBInstPack
 
             Console.Title = "EarthBound Instrument Packer";
 
-            //TODO: Do code-diving to get familiar with this thing's layout and structure
-
             if (DEBUG)
             {
-                folderPath = @"C:\Users\vince\OneDrive\Desktop\EarthBound-Instrument-Packer\EBInstPack\Examples\famicomDetectiveClub";
+                folderPath = @"";
             }
             else
             {
                 if (args.Length == 0) //If they just double-clicked the exe - no args present
                 {
                     Console.WriteLine("Command-line usage:");
-                    Console.WriteLine("   EBInstPack [folder path in quotes, or .snake file]");
+                    Console.WriteLine("   EBInstPack [folder path in quotes]");
                     Console.WriteLine();
-                    Console.WriteLine("Input the a path to the samples & text file:");
+                    Console.WriteLine("Input the a path to the BRR samples & config.txt:");
                     folderPath = Console.ReadLine();
                 }
                 else
